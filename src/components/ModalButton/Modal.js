@@ -1,8 +1,15 @@
 import { Component } from 'react';
 
 class Modal extends Component {
+
+  
+
   render() {
-    return null;
+    return (
+      <div className="Modal">
+          
+      </div>
+    );
   }
 }
 
