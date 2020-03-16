@@ -1,46 +1,53 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import './Switcher.css';
-// Для работы этой компоненты нужно использовать методы React.Children.toArray
-// а так же работать с child.type.name и child.type.displayName
 
 class Switcher extends Component {
-  state = {
-    selectedChild: 0
-  };
 
   static displayName = 'Switcher';
 
-  handleChangeChild = e => {
-    const id = e.target.dataset.id;
+  state = {
+    choosenComponent: 0
+  };
+
+  changeComponent = e => {
+    const component = e.target.dataset.component;
     this.setState(() => ({
-      selectedChild: id
+      choosenComponent: component
     }));
   };
 
   render() {
-    const kids = React.Children.toArray(this.props.children);
-    return (
-      <div className="switcher">
-        <nav>
-          <ul className="component-list">
-            {React.Children.map(kids, (child, index) => {
-              return (
-                <li
-                  className="component-list__name"
-                  key={index}
-                  data-id={index}
-                  onClick={this.handleChangeChild}
-                >
-                  {child.type.displayName || child.type.name}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-        <hr />
-        <div className="component-wrapper">
-          {kids[this.state.selectedChild]}
-        </div>
+    const componentsArray = React.Children.toArray(this.props.children);
+    return ( <
+      div className = "switcher" >
+      <nav>
+      <ul className = "switcher__list" > {
+        React.Children.map(componentsArray, (child, index) => {
+          return ( <
+            li data - component = {
+              index
+            }
+            className = "component-list__name"
+            key = {
+              index
+            }
+            onClick = {
+              this.changeComponent
+            } >
+            {
+              child.type.displayName || child.type.name
+            } <
+            /li>
+          );
+        })
+      } </ul> 
+      </nav> 
+      <div className = "switcher__component" > {
+        componentsArray[this.state.choosenComponent]
+      } 
+      </div> 
       </div>
     );
   }
