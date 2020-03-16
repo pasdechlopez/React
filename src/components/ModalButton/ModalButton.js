@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
+import Modal from './Modal.js';
 import './ModalButton.css';
-import Modal from './Modal'
 
-class ModalButton extends Component {
+export default class ModalButton extends Component {
+  
+  state = {
+    modalCondition: false
+  };
 
-  constructor() {
-    super()
-    this.state = {
-      buttonState: 0
-    }
-  }
+  showModal = () => {
+    this.setState(state => ({
+      modalCondition: true
+    }));
+  };
 
-  handleClick = () => {this.state.buttonState === 0 ? this.setState({buttonState: 1}) : this.setState({buttonState: 0})}
+
+  hideModal = () => {
+    this.setState(state => ({
+      modalCondition: false
+    }));
+  };
 
   render() {
     return (
-      <div className="modal-button" onClick={this.handleClick}>
-        <button>Modal block</button>
-        <Modal buttonState={this.state.buttonState}/>
+      <div>
+        <button className="modal-button" onClick={this.showModal}>Modal Window</button>
+        {this.state.modalCondition && <Modal hideModal={this.hideModal} />}
       </div>
     );
   }
 }
-
-export default ModalButton;

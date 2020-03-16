@@ -11,3 +11,23 @@
   width: 600px;
   height: 300px;
 }
+.buttonWrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.playButton {
+  height: 40px;
+  width: 80px;
+  background: brown;
+  margin-right: 40px;
+  cursor: pointer;
+
+}
+.stopButton {
+  height: 40px;
+  cursor: pointer;
+
+  width: 80px;
+  background: rgb(75, 228, 149);
+}
