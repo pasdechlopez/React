@@ -1,6 +1,6 @@
-import React, { PureComponent } from "react";
-import videoFile from "./Video.mp4";
-import "./VideoPlayer.css";
+import React, { PureComponent } from 'react';
+import videoFile from './Video.mp4';
+import './VideoPlayer.css';
 
 class VideoPlayer extends PureComponent {
   videoStatus = React.createRef();
@@ -11,7 +11,6 @@ class VideoPlayer extends PureComponent {
   stopVideo = () => {
     this.videoStatus.current.pause();
   };
-  // resetVideo = () => {this.videoStatus.current.seekTo(0)}
 
   render() {
     return (

@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 
 class CardNumberInput extends Component {
   state = {
@@ -20,30 +18,27 @@ class CardNumberInput extends Component {
       return '';
     }
 
-  let res = [];
-  let arr = number.toString().split('');
+    let res = [];
+    let arr = number.toString().split('');
 
-  while (arr.length > 0) {
-    res.push(arr.splice(0, 4).join(''));
+    while (arr.length > 0) {
+      res.push(arr.splice(0, 4).join(''));
+    }
+
+    return res.join(' ');
   }
 
-  return res.join(' ');
-}
+  normalize = number => number.replace(/\s/g, '');
 
-normalize = number => number.replace(/\s/g, '');
-
-
-render() {
-  return <input 
-  className = "CardHolder"
-  value = {
-    this.state.number
+  render() {
+    return (
+      <input
+        className="CardHolder"
+        value={this.state.number}
+        onChange={this.handleInput}
+      />
+    );
   }
-  onChange = {
-    this.handleInput
-  }
-  />;
-}
 }
 
 export default CardNumberInput;

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Modal from "./Modal.js";
-import "./ModalButton.css";
+import React, { Component } from 'react';
+import Modal from './Modal.js';
+import './ModalButton.css';
 
 export default class ModalButton extends Component {
   state = {
@@ -23,9 +23,9 @@ export default class ModalButton extends Component {
     return (
       <div>
         <button className="modal-button" onClick={this.showModal}>
-          Modal Window{" "}
-        </button>{" "}
-        {this.state.modalCondition && <Modal hideModal={this.hideModal} />}{" "}
+          Modal Window{' '}
+        </button>{' '}
+        {this.state.modalCondition && <Modal hideModal={this.hideModal} />}{' '}
       </div>
     );
   }
