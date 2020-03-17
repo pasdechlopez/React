@@ -4,7 +4,7 @@ import React, {
 import './Switcher.css';
 
 class Switcher extends Component {
-
+  
   static displayName = 'Switcher';
 
   state = {
@@ -19,6 +19,7 @@ class Switcher extends Component {
   };
 
   render() {
+    console.log("hey")
     const componentsArray = React.Children.toArray(this.props.children);
     return ( <
       div className = "switcher" >

@@ -7,18 +7,18 @@ class CardNumberInput extends Component {
     number: this.format(this.props.cardNumber)
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.cardNumber !== this.props.cardNumber) {
-  //     this.setState(() => ({
-  //       number: this.format(nextProps.cardNumber)
-  //     }));
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.cardNumber !== this.props.cardNumber) {
+      this.setState(() => ({
+        number: this.format(nextProps.cardNumber)
+      }));
+    }
+  }
 
-  // format(number) {
-  //   if (number === null || !number) {
-  //     return '';
-  //   }
+  format(number) {
+    if (number === null || !number) {
+      return '';
+    }
 
   let res = [];
   let arr = number.toString().split('');
@@ -30,11 +30,13 @@ class CardNumberInput extends Component {
   return res.join(' ');
 }
 
-// normalize = number => number.replace(/\s/g, '');
+normalize = number => number.replace(/\s/g, '');
 
 
 render() {
-  return <input value = {
+  return <input 
+  className = "CardHolder"
+  value = {
     this.state.number
   }
   onChange = {
