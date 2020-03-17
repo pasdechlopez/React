@@ -3,25 +3,28 @@ import './App.css';
 import CardForm from 'components/CardForm/CardForm';
 import Step from 'components/Step/Step';
 import PersonalForm from 'components/PersonalInfo/PersonalInfo';
-// import Button from 'components/Button/Button'
 
 class App extends Component {
 
-   constructor() {
-      super()
-      this.state = {
+      state = {
          step: 1,
          firstName: '',
          lastName: '',
          email: '',
          cardNumber: ''
       };
-   }
+   
    //проверка адекватности ввода
    formConditions = () => {
+      const {
+         
+      } = this
+      reg = new RegExp("^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$");
       switch (this.state.step) {
          case 1:
-            return (this.state.firstName !== '' && this.state.lastName !== '' && this.state.email !== '' && this.state.email.includes('.') && this.state.email.includes('@'));
+            return (this.state.firstName !== '' && this.state.lastName !== '' && 
+            this.state.email !== '' && this.state.email.includes('.') 
+            && this.state.email.includes('@'));
          case 2:
             // break;
             return (this.state.cardNumber.length === 10);
@@ -31,11 +34,13 @@ class App extends Component {
    };
 
    handleClickNextForm = () => {
-      this.setState({
-         step: this.state.step + 1
-      })
-      
+      this.setState(function(prevState) {
+         return {
+           step: prevState.step + 1
+         };
+       });
    };
+ 
 
    handleTabClick = (tabNumber) => {
       this.setState({
@@ -57,7 +62,7 @@ class App extends Component {
             return <CardForm cardNumber={this.state.cardNumber} onChangeForm={this.handleFormChange} />;
          case 3:
             return <p data-test="congratulations">Данные успешно сохранены</p>;
-         default:
+         default: 
             return <p>Ошибка!</p>;
       }
    };
@@ -80,7 +85,6 @@ class App extends Component {
             <div className="button">
                <button className="button-next" onClick={this.handleClickNextForm} disabled={!this.formConditions()} hidden={this.state.step === 3}>Next</button>
             </div>
-            {/* <Button /> */}
          </div>
       );
    }

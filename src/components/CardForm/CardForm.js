@@ -7,8 +7,6 @@ class CardForm extends Component {
       onChangeForm(event.target.name, event.target.value);
    };
 
-   componentWillUnmount() {};
-
    render() {
       return (
          <div data-test="card-form" className="id-form">
