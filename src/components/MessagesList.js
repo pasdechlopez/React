@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom'
 
 class MessagesList extends React.Component {
 
-    componentWillUpdate() {
-        const node = ReactDOM.findDOMNode
-    }
-
-    //screen behaviour in case of new messages appearence
+    //screen behaviour in case of new messages appearance
     componentDidUpdate() {
         const node = ReactDOM.findDOMNode(this)
         node.scrollTop = node.scrollHeight
