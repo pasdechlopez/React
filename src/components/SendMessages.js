@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 class SendMessages extends React.Component {
   state = {
-    message: '',
+    message: "",
     messages: []
   };
 
@@ -14,16 +14,17 @@ class SendMessages extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.state.message !== ''
+    this.state.message !== ""
       ? this.setState({
           messages: [...this.state.messages, { text: this.state.message }],
-          message: ''
+          message: ""
         })
-      : console.log('Empty messsage!');
+      : console.log("Empty messsage!");
   };
 
   bottom = React.createRef();
-  scrollToMyRef = () => window.scrollTo(0, this.bottom.current.scrollHeight);
+  scrollToMyRef = () =>
+    this.bottom.current.scrollTo(0, this.bottom.current.scrollHeight);
   componentDidUpdate() {
     // this.bottom.current.scrollTop = this.bottom.current.scrollHeight;
     this.scrollToMyRef();
