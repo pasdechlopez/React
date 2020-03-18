@@ -10,29 +10,31 @@ import PrivateRoute from '../PrivateRoute';
 export class App extends PureComponent {
   render() {
     return (
-      <AuthorizeProvider>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Главная</Link>
-              </li>
-              <li>
-                <Link to="/login">Войти</Link>
-              </li>
-              <li>
-                <Link to="/private">Секретная страница</Link>
-              </li>
-            </ul>
-          </nav>
+      <div className="router">
+        <AuthorizeProvider>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Главная</Link>
+                </li>
+                <li>
+                  <Link to="/login">Войти</Link>
+                </li>
+                <li>
+                  <Link to="/private">Секретная страница</Link>
+                </li>
+              </ul>
+            </nav>
 
-          <Switch>
-            <Route exact path="/" component={Public} exact />
-            <Route path="/login" component={Login} />
-            <PrivateRoute path="/private" component={Private} />
-          </Switch>
-        </div>
-      </AuthorizeProvider>
+            <Switch>
+              <Route exact path="/" component={Public} exact />
+              <Route path="/login" component={Login} />
+              <PrivateRoute path="/private" component={Private} />
+            </Switch>
+          </div>
+        </AuthorizeProvider>
+      </div>
     );
   }
 }

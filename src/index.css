@@ -3,3 +3,7 @@ body {
   padding: 20px;
   font-family: sans-serif;
 }
+
+.router {
+  background-color: rgba(red, green, rgb(104, 104, 232), 0, 4);
+}
