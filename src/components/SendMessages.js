@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 class SendMessages extends React.Component {
   state = {
-    message: "",
+    message: '',
     messages: []
   };
 
@@ -14,14 +14,12 @@ class SendMessages extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.state.message !== ""
+    this.state.message !== ''
       ? this.setState({
-          messages: [...this.state.messages, { text: this.state.message }]
+          messages: [...this.state.messages, { text: this.state.message }],
+          message: ''
         })
-      : console.log("Empty messsage!");
-    this.setState({
-      message: ""
-    });
+      : console.log('Empty messsage!');
   };
 
   bottom = React.createRef();
