@@ -14,12 +14,23 @@ export default class CardNumberHolder extends Component {
     }));
   };
 
+  handleSubmit = value => {
+    value.preventDefault();
+    console.log(this.state.cardNumber);
+    window.alert('thanks for the response');
+    this.setState(state => ({
+      cardNumber: ''
+    }));
+  };
+
   render() {
     return (
-      <CardNumberInput
-        onChange={this.handleChange}
-        cardNumber={this.state.cardNumber}
-      />
+      <form onSubmit={this.handleSubmit}>
+        <CardNumberInput
+          onChange={this.handleChange}
+          cardNumber={this.state.cardNumber}
+        />
+      </form>
     );
   }
 }
