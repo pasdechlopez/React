@@ -16,13 +16,10 @@ class App extends Component {
   //проверка адекватности ввода
   formConditions = () => {
     const {
-      state: { email },
-      state: { firstName },
-      state: { lastName },
-      state: { cardNumber }
+      state: { email, lastName, firstName, cardNumber, step }
     } = this;
     const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    switch (this.state.step) {
+    switch (step) {
       case 1:
         return (
           firstName !== '' && lastName !== '' && email !== '' && reg.test(email)
@@ -56,22 +53,23 @@ class App extends Component {
   };
 
   formRender = () => {
-    switch (this.state.step) {
+    const {
+      state: { firstName, lastName, email, step, cardNumber },
+      handleFormChange
+    } = this;
+    switch (step) {
       case 1:
         return (
           <PersonalForm
-            firstName={this.state.firstName}
-            lastName={this.state.lastName}
-            email={this.state.email}
-            onChangeForm={this.handleFormChange}
+            firstName={firstName}
+            lastName={lastName}
+            email={email}
+            onChangeForm={handleFormChange}
           />
         );
       case 2:
         return (
-          <CardForm
-            cardNumber={this.state.cardNumber}
-            onChangeForm={this.handleFormChange}
-          />
+          <CardForm cardNumber={cardNumber} onChangeForm={handleFormChange} />
         );
       case 3:
         return <p data-test="congratulations">Данные успешно сохранены</p>;
@@ -81,36 +79,40 @@ class App extends Component {
   };
 
   render() {
-    const thisStep = this.state.step;
-    console.log(this.state.step);
-    console.log(this.state.email, this.state.firstName);
+    const {
+      state: { step },
+      formConditions,
+      handleClickNextForm,
+      handleTabClick
+    } = this;
+
     return (
       <div className="container">
         <div className="tab-panel">
           <Step
             number={1}
-            isSelected={thisStep === 1}
+            isSelected={step === 1}
             children={'Personal info'}
-            isClickable={thisStep > 1}
-            onClick={this.handleTabClick}
+            isClickable={step > 1}
+            onClick={handleTabClick}
           />
           <Step
             number={2}
-            isSelected={thisStep === 2}
+            isSelected={step === 2}
             children={'Card info'}
-            isClickable={thisStep > 2}
-            onClick={this.handleTabClick}
+            isClickable={step > 2}
+            onClick={handleTabClick}
           />
-          <Step number={3} isSelected={thisStep === 3} children={'Success!'} />
+          <Step number={3} isSelected={step === 3} children={'Success!'} />
         </div>
 
         <div className="form-content">{this.formRender()}</div>
         <div className="button">
           <button
             className="button-next"
-            onClick={this.handleClickNextForm}
-            disabled={!this.formConditions()}
-            hidden={this.state.step === 3}
+            onClick={handleClickNextForm}
+            disabled={!formConditions()}
+            hidden={step === 3}
           >
             Next
           </button>
