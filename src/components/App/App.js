@@ -13,6 +13,14 @@ class App extends Component {
     cardNumber: ''
   };
 
+  handleClickNextForm = () => {
+    this.setState(function(prevState) {
+      return {
+        step: prevState.step + 1
+      };
+    });
+  };
+
   //проверка адекватности ввода
   formConditions = () => {
     const {
@@ -32,20 +40,12 @@ class App extends Component {
     }
   };
 
-  handleClickNextForm = () => {
-    this.setState(function(prevState) {
-      return {
-        step: prevState.step + 1
-      };
-    });
-  };
-
   handleTabClick = tabNumber => {
     this.setState({
       step: tabNumber
     });
   };
-
+  //смена активного окна -- улучшение?
   handleFormChange = (name, value) => {
     this.setState({
       [name]: value
