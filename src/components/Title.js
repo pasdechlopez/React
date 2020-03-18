@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Title() {
-    return <p className="title">My awesome chat app</p>
-  }
+  return <p className="title">My awesome chat app</p>;
+}
 
-  export default Title;
+export default Title;
