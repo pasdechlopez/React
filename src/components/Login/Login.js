@@ -36,21 +36,27 @@ class Login extends Component {
     ) : (
       <form onSubmit={this.handleSubmit}>
         {error && <p className="error">{error}</p>}
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name" className="login__form">
+          Name
+        </label>
         <input
           name="email"
           type="text"
+          placeholder="Type ur login"
           onChange={this.handleChange}
           value={name}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="login__form">
+          Password
+        </label>
         <input
           name="password"
           type="password"
           onChange={this.handleChange}
           value={password}
+          placeholder="Type ur password"
         />
-        <button>Submit</button>
+        <button className="login__button">Submit</button>
       </form>
     );
   }

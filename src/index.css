@@ -5,5 +5,16 @@ body {
 }
 
 .router {
-  background-color: rgba(red, green, rgb(104, 104, 232), 0, 4);
+  background: orange;
+  padding: 10px;
+}
+
+.login__button {
+  background: red;
+  margin: 5px;
+  cursor: pointer;
+}
+.login__form {
+  margin: 5px;
+  font-style: italic;
 }
