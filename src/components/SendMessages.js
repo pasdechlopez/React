@@ -23,18 +23,25 @@ class SendMessages extends React.Component {
   };
 
   bottom = React.createRef();
-  scrollToMyRef = () => window.scrollTo(0, this.bottom.current);
+  scrollToMyRef = () => window.scrollTo(0, this.bottom.current.scrollHeight);
   componentDidUpdate() {
     this.bottom.current.scrollTop = this.bottom.current.scrollHeight;
+    // this.scrollToMyRef();
   }
 
   render() {
+    const {
+      bottom,
+      handleChange,
+      handleSubmit,
+      state: { messages, message }
+    } = this;
     console.log(this.state.messages);
     return (
       <div className="message-list">
-        <div className="messages" ref={this.bottom}>
+        <div className="messages" ref={bottom}>
           <ul>
-            {this.state.messages.map((message, index) => {
+            {messages.map((message, index) => {
               return (
                 <li key={index} className="message">
                   {message.text}
@@ -44,10 +51,10 @@ class SendMessages extends React.Component {
           </ul>
         </div>
 
-        <form onSubmit={this.handleSubmit} className="send-message-form">
+        <form onSubmit={handleSubmit} className="send-message-form">
           <input
-            onChange={this.handleChange}
-            value={this.state.message}
+            onChange={handleChange}
+            value={message}
             placeholder="Type your message and hit ENTER"
             type="text"
           />
