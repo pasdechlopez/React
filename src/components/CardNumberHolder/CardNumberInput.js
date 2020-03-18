@@ -1,44 +1,54 @@
 import React, { Component } from 'react';
 
-class CardNumberInput extends Component {
-  state = {
-    number: this.format(this.props.cardNumber)
+export default class CardNumberInput extends Component {
+  constructor(props) {
+    super(props);
+    this.refInput = React.createRef();
+    this.state = {
+      number: props.cardNumber ? this.format(props.cardNumber) : ''
+    };
+  }
+
+
+  stateChange = cardNumber => {
+    this.setState(
+      state => ({
+        number: this.format(cardNumber)
+      }),
+      () => (this.refInput.current.value = this.state.number)
+    );
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.cardNumber !== this.props.cardNumber) {
-      this.setState(() => ({
-        number: this.format(nextProps.cardNumber)
-      }));
-    }
+    const { cardNumber } = nextProps;
+    this.stateChange(cardNumber);
   }
 
-  format(number) {
-    if (number === null || !number) {
+  format = value => {
+    if (value === null) {
       return '';
     }
+    const newValue = value.toString();
+    const modified = newValue
+      .replace(/[^\dA-Z]/g, '')
+      .replace(/(.{4})/g, '$1 ')
+      .trim();
+    return modified;
+  };
 
-    let res = [];
-    let arr = number.toString().split('');
-
-    while (arr.length > 0) {
-      res.push(arr.splice(0, 4).join(''));
-    }
-
-    return res.join(' ');
-  }
-
-  normalize = number => number.replace(/\s/g, '');
+  normalize = value => {
+    const newValue = value.replace(/\s/g, '').trim();
+    return newValue;
+  };
 
   render() {
+    const { onChange } = this.props;
     return (
       <input
-        className="CardHolder"
-        value={this.state.number}
-        onChange={this.handleInput}
+        placeholder="Type ur Card Number"
+        ref={this.refInput}
+        onChange={event => onChange(this.normalize(event.target.value))}
       />
     );
   }
 }
-
-export default CardNumberInput;

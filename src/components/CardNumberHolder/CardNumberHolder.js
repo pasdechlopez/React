@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
-import CardNumberInput from './CardNumberInput';
+import CardNumberInput from './CardNumberInput.js';
 
-class CardNumberHolder extends Component {
+export default class CardNumberHolder extends Component {
   state = {
     cardNumber: ''
   };
 
   static displayName = 'Card number';
 
-  handleChange = text => {
-    this.setState(() => ({
-      cardNumber: text
+  handleChange = value => {
+    this.setState(state => ({
+      cardNumber: value
     }));
   };
 
   render() {
     return (
-      <div className="Card">
-        <CardNumberInput
-          cardNumber={this.state.cardNumber}
-          onchange={this.handleChange}
-        />
-      </div>
+      <CardNumberInput
+        onChange={this.handleChange}
+        cardNumber={this.state.cardNumber}
+      />
     );
   }
 }
-
-export default CardNumberHolder;

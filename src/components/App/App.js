@@ -3,6 +3,8 @@ import "./App.css";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import Switcher from "../Switcher/Switcher";
 import CardNumberHolder from "../CardNumberHolder/CardNumberHolder";
+import ModalButton from "../ModalButton/ModalButton";
+
 
 class App extends Component {
   render() {
@@ -10,6 +12,7 @@ class App extends Component {
       <Switcher>
         <CardNumberHolder />
         <VideoPlayer />
+        <ModalButton />
       </Switcher>
     );
   }

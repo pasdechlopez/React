@@ -1,18 +1,29 @@
 .switcher {
+  background-color: rgba(11, 28, 124, 0.5);
   height: 100%;
+  padding: 15px;
 }
 
 .switcher__navigation {
   list-style: none;
   display: flex;
   flex-direction: row;
-
 }
 
 .navigation__components-lits {
   margin-right: 10px;
   text-decoration: underline;
   cursor: pointer;
+}
+.component-list__name {
+  cursor: pointer;
+  margin: 5px;
+  font-size: 20px;
+  font-style: italic;
+  color: blueviolet;
+}
+.component-list__name:focus {
+  color: blue;
 }
 
 .component-wrapper {

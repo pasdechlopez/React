@@ -15,7 +15,7 @@ class VideoPlayer extends PureComponent {
   render() {
     return (
       <div className="videoWrapper">
-        <video width="500px" src={videoFile} ref={this.videoStatus}></video>
+        <video width="400px" src={videoFile} ref={this.videoStatus}></video>
         <div className="buttonWrapper">
           <button className="playButton" onClick={this.playVideo}>
             Play
