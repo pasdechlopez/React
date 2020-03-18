@@ -17,17 +17,19 @@ class App extends Component {
    //проверка адекватности ввода
    formConditions = () => {
       const {
-         
+         state: {email},
+         state: {firstName},
+         state: {lastName},
+         state: {cardNumber}
       } = this
-      reg = new RegExp("^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$");
+      const reg = new RegExp("^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$");
       switch (this.state.step) {
          case 1:
-            return (this.state.firstName !== '' && this.state.lastName !== '' && 
-            this.state.email !== '' && this.state.email.includes('.') 
-            && this.state.email.includes('@'));
+            return (firstName !== '' && lastName !== '' && 
+            email !== '' && reg.test(email));
          case 2:
             // break;
-            return (this.state.cardNumber.length === 10);
+            return (cardNumber.length === 10);
          default :
             return false
       }
