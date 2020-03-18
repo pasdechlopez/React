@@ -25,8 +25,8 @@ class SendMessages extends React.Component {
   bottom = React.createRef();
   scrollToMyRef = () => window.scrollTo(0, this.bottom.current.scrollHeight);
   componentDidUpdate() {
-    this.bottom.current.scrollTop = this.bottom.current.scrollHeight;
-    // this.scrollToMyRef();
+    // this.bottom.current.scrollTop = this.bottom.current.scrollHeight;
+    this.scrollToMyRef();
   }
 
   render() {
