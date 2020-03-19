@@ -23,11 +23,18 @@ class SendMessages extends React.Component {
   };
 
   bottom = React.createRef();
-  scrollToMyRef = () =>
+  scrollRefDown = () =>
     this.bottom.current.scrollTo(0, this.bottom.current.scrollHeight);
-  componentDidUpdate() {
-    // this.bottom.current.scrollTop = this.bottom.current.scrollHeight;
-    this.scrollToMyRef();
+  componentDidUpdate(...args) {
+    const [, prevState] = args;
+    const { messages: prevMessages } = prevState;
+    const {
+      state: { messages },
+      scrollRefDown
+    } = this;
+    if (messages.length > prevMessages.length) {
+      scrollRefDown();
+    }
   }
 
   render() {
