@@ -16,6 +16,10 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.chosen {
+  cursor: pointer;
+  color: blue
+}
 .component-list__name {
   cursor: pointer;
   margin: 5px;

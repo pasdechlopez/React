@@ -19,31 +19,36 @@ class Switcher extends Component {
   };
 
   render() {
-    console.log("Children", this.ref);
+    console.log("Children", this.props.children[0]);
+    console.log("Children",this.props.children);
     return (
       <div className="switcher">
         <nav>
           <ul className="switcher__list">
             {" "}
-            {React.Children.map(this.componentsArray, (child, index) => {
+            {React.Children.map(this.props.children, (child, index) => {
               return (
                 <li
                   data-component={index}
                   className={
-                    index === this.state.choosenComponent ? "chosen" : ""
+                    `list-item ${index.toString() === this.state.choosenComponent ? 'chosen' : "component-list__name"}`
                   }
                   key={index}
                   onClick={this.changeComponent}
                 >
                   {child.type.displayName || child.type.name}{" "}
+                  {/* {index === this.state.choosenComponent ? child : console.log("")} */}
                 </li>
               );
             })}{" "}
           </ul>
         </nav>
         <div className="switcher__component">
+
           {" "}
-          {this.componentsArray[this.state.choosenComponent]}
+            {/* {React.Children.map(this.props.children, (child, index) =>  {index === this.state.choosenComponent ? child : console.log("")}} */}
+          {/* {this.componentsArray[this.state.choosenComponent]} */}
+          {this.props.children[this.state.choosenComponent]}
         </div>
       </div>
     );
