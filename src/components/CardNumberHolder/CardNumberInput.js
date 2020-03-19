@@ -18,7 +18,7 @@ export default class CardNumberInput extends Component {
     );
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { cardNumber } = nextProps;
     this.stateChange(cardNumber);
   }

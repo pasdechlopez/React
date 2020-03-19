@@ -23,7 +23,7 @@
   font-style: italic;
   color: blueviolet;
 }
-.component-list__name:focus {
+.component-list__name:active {
   color: blue;
 }
 
