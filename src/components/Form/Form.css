@@ -1,0 +1,20 @@
+.form-content {
+  padding: 0 30px;
+}
+
+.button {
+  padding: 10px 20px;
+  display: flex;
+  cursor: pointer;
+}
+
+.button-next {
+  margin-left: auto;
+  background-color: rgb(230, 107, 0);
+  color: white;
+}
+
+.button-next:disabled {
+  background-color: rgb(255, 238, 0);
+  color: rgb(230, 30, 30);
+}
