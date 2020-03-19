@@ -81,7 +81,7 @@ class Form extends Component {
     } = this;
 
     return (
-      <>
+      <div>
         <div className="form-content">{renderFormByStep()}</div>
         <div className="button">
           <button
@@ -93,8 +93,9 @@ class Form extends Component {
             Next
           </button>
         </div>
-      </>
-    );
+      
+    </div>
+   );
   }
 }
 

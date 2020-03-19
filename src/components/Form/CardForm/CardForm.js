@@ -12,6 +12,7 @@ class CardForm extends Component {
       <div data-test="card-form" className="id-form">
         <h1 className="title">Введите свой ID number, 10 цифр</h1>
         <input
+        maxLength="10"
           name="cardNumber"
           placeholder="12345678, 10 digits"
           value={this.props.cardNumber}
