@@ -16,8 +16,10 @@ class Step extends Component {
            isSelected,
             isClickable} = this.props;
       return (
-         <div className={'step' + (isSelected ? ' step-selected' : (isClickable ? ' step-clickable' : ''))} onClick={this.handleClick}>
-            <p className="step__number">
+         // <div className={'step' + (isSelected ? ' step-selected' : (isClickable ? ' step-clickable' : ''))} onClick={this.handleClick}>
+         <div className = {‘ step ${isSelected ? 'step-selecter' : ''} 
+         ${isClickable ? 'step-clickable' : ''}‘} >
+          <p className="step__number">
                {number}
             </p>
             <p className="step__title">

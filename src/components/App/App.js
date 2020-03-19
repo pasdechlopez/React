@@ -13,6 +13,9 @@ class App extends Component {
     cardNumber: ''
   };
 
+  reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  steps = ['Personal Info', 'Card info', 'Success'];
+
   handleClickNextForm = () => {
     this.setState(function(prevState) {
       return {
@@ -26,7 +29,6 @@ class App extends Component {
     const {
       state: { email, lastName, firstName, cardNumber, step }
     } = this;
-    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     switch (step) {
       case 1:
         return (
@@ -87,26 +89,25 @@ class App extends Component {
     } = this;
 
     return (
-      <div className="container">
-        <div className="tab-panel">
-          <Step
-            number={1}
-            isSelected={step === 1}
-            children={'Personal info'}
-            isClickable={step > 1}
-            onClick={handleTabClick}
-          />
-          <Step
-            number={2}
-            isSelected={step === 2}
-            children={'Card info'}
-            isClickable={step > 2}
-            onClick={handleTabClick}
-          />
-          <Step number={3} isSelected={step === 3} children={'Success!'} />
+      <div>
+        <div>
+          {steps.map((stepName, index) => {
+            const number = index + 1;
+            return (
+              <Step
+                key={index}
+                number={number}
+                isSelected={step === number}
+                isClickable={step > number}
+                onClick={handleTabClick}
+              >
+                {stepName}
+              </Step>
+            );
+          })}
         </div>
 
-        <div className="form-content">{this.formRender()}</div>
+        <div className="container__buttons">{this.formRender()}</div>
         <div className="button">
           <button
             className="button-next"
