@@ -10,15 +10,12 @@ class Switcher extends Component {
 
   componentsArray = React.Children.toArray(this.props.children);
 
-  ref = React.createRef();
   changeComponent = e => {
     const component = e.target.dataset.component;
     console.log("dataset", e.target.dataset.component);
-    // component.className = 'choosen';
     this.setState(() => ({
       choosenComponent: component
     }));
-    console.log("target", e.target.dataset);
   };
 
   render() {
@@ -31,9 +28,10 @@ class Switcher extends Component {
             {React.Children.map(this.componentsArray, (child, index) => {
               return (
                 <li
-                  ref={this.ref}
                   data-component={index}
-                  className={‘list-item ${index === this.state.choosenComponent ? “chosen” : “”}’}
+                  className={
+                    index === this.state.choosenComponent ? "chosen" : ""
+                  }
                   key={index}
                   onClick={this.changeComponent}
                 >
