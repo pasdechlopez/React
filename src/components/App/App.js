@@ -21,7 +21,8 @@ export class App extends PureComponent {
                 <li>
                   <Link to="/login">Войти</Link>
                 </li>
-                <li>
+                <li
+                >
                   <Link to="/private">Секретная страница</Link>
                 </li>
               </ul>
