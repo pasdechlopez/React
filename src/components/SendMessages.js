@@ -22,9 +22,10 @@ class SendMessages extends React.Component {
       : console.log("Empty messsage!");
   };
 
-  bottom = React.createRef();
+  //init ref and set conditions on auto-scroll to the bottom if new message is sent
+  refToBottom = React.createRef();
   scrollRefDown = () =>
-    this.bottom.current.scrollTo(0, this.bottom.current.scrollHeight);
+    this.refToBottom.current.scrollTo(0, this.refToBottom.current.scrollHeight);
   componentDidUpdate(...args) {
     const [, prevState] = args;
     const { messages: prevMessages } = prevState;
@@ -39,7 +40,7 @@ class SendMessages extends React.Component {
 
   render() {
     const {
-      bottom,
+      refToBottom,
       handleChange,
       handleSubmit,
       state: { messages, message }
@@ -47,7 +48,7 @@ class SendMessages extends React.Component {
     console.log(this.state.messages);
     return (
       <div className="message-list">
-        <div className="messages" ref={bottom}>
+        <div className="messages" ref={refToBottom}>
           <ul>
             {messages.map((message, index) => {
               return (
