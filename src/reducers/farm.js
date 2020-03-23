@@ -1,5 +1,5 @@
-import { MOVE_ORDER_TO_FARM } from 'actions/marketTypes';
-import { MOVE_ORDER_TO_CUSTOMER } from 'actions/farmTypes';
+import { MOVE_ORDER_TO_FARM } from '../actions/marketTypes';
+import { MOVE_ORDER_TO_CUSTOMER } from '../actions/farmTypes';
 
 const farm = (state = { orders: [] }, action) => {
   switch (action.type) {

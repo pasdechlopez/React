@@ -1,4 +1,4 @@
-import { CREATE_ORDER, MOVE_ORDER_TO_FARM } from 'actions/marketTypes';
+import { CREATE_ORDER, MOVE_ORDER_TO_FARM } from '../actions/marketTypes';
 
 const market = (state = { orders: [] }, action) => {
   switch (action.type) {

@@ -18,7 +18,7 @@ export const Budget = ({
       <span className="budget__farm-expenses">{-farmExpanse}</span>
     </p>
     <p>
-      Sellers' expenses:{' '}
+      Sellers expenses:{' '}
       <span className="budget__sellers-expenses">{-marketExpanse}</span>
     </p>
 

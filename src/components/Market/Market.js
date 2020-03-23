@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Market.css';
 import Order from '../Order/Order';
-import { createOrder, moveOrderToFarm } from 'actions/marketActions';
+import { createOrder, moveOrderToFarm } from '../../actions/marketActions';
 import { connect } from 'react-redux';
 
 let id = 0;

@@ -3,7 +3,11 @@ import './Farm.css';
 
 export class Farm extends Component {
   render() {
-    return <div className="farm" />;
+    return (
+      <div className="farm">
+        <div></div>
+      </div>
+    );
   }
 }
 
