@@ -52,8 +52,7 @@ export class Market extends Component {
         <h2>New orders</h2>
 
         <button
-          className="market__create-button"
-          className="button"
+          className="market__create-button button"
           onClick={this.handleCreateNewOrder}
         >
           Create Order
