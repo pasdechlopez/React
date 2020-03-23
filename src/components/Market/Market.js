@@ -55,7 +55,7 @@ export class Market extends Component {
           className="market__create-button"
           onClick={this.handleCreateNewOrder}
         >
-          Создать заказ
+          Create Order
         </button>
         <button
           disabled={!(this.props.orders.length > 0)}
@@ -81,10 +81,10 @@ export class Market extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  createOrder,
-  moveOrderToFarm
-};
+const mapDispatchToProps = dispatch => ({
+  createOrder: newOrder => dispatch(createOrder(newOrder)),
+  moveOrderToFarm: newOrder => dispatch(moveOrderToFarm(newOrder))
+});
 const mapStateToProps = state => ({
   orders: state.market.orders
 });
