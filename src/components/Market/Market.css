@@ -1,6 +1,6 @@
 .market {
   border-radius: 4px;
-  background-color: #eee;
+  background-color: rgb(255, 252, 82);
   padding: 10px 20px;
   margin: 0 10px;
 }
@@ -13,4 +13,8 @@
 
 .order-list {
   padding: 20px 0;
+}
+
+.button {
+  cursor: pointer;
 }

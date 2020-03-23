@@ -10,7 +10,11 @@ export class Farm extends Component {
     return (
       <div className="farm">
         <h2>Farm</h2>
-        <button onClick={moveOrderToCustomer} disabled={!orders.length}>
+        <button
+          className="button"
+          onClick={moveOrderToCustomer}
+          disabled={!orders.length}
+        >
           Sent to client
         </button>
         <div>

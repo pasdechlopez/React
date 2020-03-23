@@ -53,6 +53,7 @@ export class Market extends Component {
 
         <button
           className="market__create-button"
+          className="button"
           onClick={this.handleCreateNewOrder}
         >
           Create Order
@@ -60,6 +61,7 @@ export class Market extends Component {
         <button
           disabled={!(this.props.orders.length > 0)}
           onClick={this.handleSendOrderToFarm}
+          className="button"
         >
           Send order to farm
         </button>
