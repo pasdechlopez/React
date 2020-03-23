@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Link from 'react-router-dom';
 import './ShowPreview.css';
+import React from 'react';
 
 class ShowPreview extends Component {
   render() {

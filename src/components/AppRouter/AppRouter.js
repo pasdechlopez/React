@@ -1,7 +1,8 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+
 import ShowPage from '../ShowPage';
 import Search from '../Search';
-import { Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends Component {
   render() {

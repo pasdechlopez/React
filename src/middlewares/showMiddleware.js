@@ -2,10 +2,9 @@ import { search } from '../api';
 
 import { searchRequest, searchSuccess, searchFailure } from '../actions/search';
 
-const searchMiddleware = store => next => action => {
+const searchMiddleware = (store, action, next) => {
   if (action.type === searchRequest.toString()) {
-    const data = action.payload;
-    search(data)
+    search(action.payload)
       .then(result => {
         store.dispatch(searchSuccess(result));
       })
