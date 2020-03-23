@@ -1,5 +1,5 @@
 .order {
-  margin: 5px 0;
+  margin: 5px 10px;
   padding: 10px;
   background-color: #d1d1ff;
   border-radius: 3px;
@@ -11,9 +11,7 @@
   justify-content: space-between;
 }
 
-.order__lower {
 
-}
 
 .p--order {
   padding: 0;

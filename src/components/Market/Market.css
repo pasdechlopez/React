@@ -2,7 +2,7 @@
   border-radius: 4px;
   background-color: rgb(255, 252, 82);
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 0px 10px 10px 0px;
 }
 
 .new-orders__create-form {
@@ -17,4 +17,8 @@
 
 .button {
   cursor: pointer;
+}
+
+.button:disabled {
+  cursor: unset
 }

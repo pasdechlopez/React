@@ -8,12 +8,12 @@ const budget = (
 ) => {
   switch (action.type) {
     case MOVE_ORDER_TO_CUSTOMER:
-      return { ...state, deliveryExpanse: state.deliveryExpanse + 45 };
+      return { ...state, deliveryExpanse: state.deliveryExpanse + 20 };
     case CREATE_ORDER:
       return {
         ...state,
         profit: state.profit + action.payload.price,
-        marketExpanse: state.marketExpanse + 40
+        marketExpanse: state.marketExpanse + 100
       };
 
     case MOVE_ORDER_TO_FARM:
