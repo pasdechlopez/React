@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './Market.css';
+import Order from '../Order/Order';
+import { createOrder, moveOrderToFarm } from 'actions/marketActions';
+import { connect } from 'react-redux';
 
 let id = 0;
 
@@ -20,22 +23,70 @@ export const vegetables = [
   'Лук',
   'Перец',
   'Картофель',
-  'Редька',
+  'Редька'
 ];
 
 const getNewOrder = () => {
   return {
     id: getId(),
+    price: Math.floor(Math.random() * 100) + 100,
     name: vegetables[Math.floor(Math.random() * vegetables.length)],
-    price: 100 + Math.floor(Math.random() * 100),
-    createdAt: new Date(),
+    createdAt: new Date().toTimeString()
   };
 };
 
 export class Market extends Component {
+  handleCreateNewOrder = () => {
+    this.props.createOrder(getNewOrder());
+  };
+
+  handleSendOrderToFarm = () => {
+    this.props.moveOrderToFarm(this.props.orders[0]);
+  };
+
   render() {
-    return <div className="market" />;
+    const { orders } = this.props;
+
+    return (
+      <div className="market">
+        <h2>New orders</h2>
+
+        <button
+          className="market__create-button"
+          onClick={this.handleCreateNewOrder}
+        >
+          Создать заказ
+        </button>
+        <button
+          disabled={!(this.props.orders.length > 0)}
+          onClick={this.handleSendOrderToFarm}
+        >
+          Send order to farm
+        </button>
+
+        <div className="market__order">
+          {orders.map((order, i) => {
+            return (
+              <Order
+                name={order.name}
+                createdAt={order.createdAt}
+                key={i}
+                price={order.price}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
   }
 }
 
-export default Market;
+const mapDispatchToProps = {
+  createOrder,
+  moveOrderToFarm
+};
+const mapStateToProps = state => ({
+  orders: state.market.orders
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Market);

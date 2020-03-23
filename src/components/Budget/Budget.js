@@ -1,6 +1,6 @@
 import React from 'react';
-import './Budget.css';
 import { connect } from 'react-redux';
+import './Budget.css';
 
 export const Budget = ({
   profit,
@@ -9,36 +9,36 @@ export const Budget = ({
   deliveryExpanse
 }) => (
   <div className="budget">
-    <h2>Бюджет: </h2>
+    <h2>Budget</h2>
     <p>
-      Всего получено денег: <span className="t-profit">{profit}</span>
+      All income: <span className="budget__income">{profit}</span>
     </p>
     <p>
-      Расходы продавцов: <span className="t-sellers">{-marketExpanse}</span>
+      Expenses on the farm:{' '}
+      <span className="budget__farm-expenses">{-farmExpanse}</span>
     </p>
     <p>
-      Расходы на ферме: <span className="t-farm">{-farmExpanse}</span>
+      Sellers' expenses:{' '}
+      <span className="budget__sellers-expenses">{-marketExpanse}</span>
+    </p>
+
+    <p>
+      Delivery exp: <span className="budget__delivery">{-deliveryExpanse}</span>
     </p>
     <p>
-      Расходы на доставку:{' '}
-      <span className="t-delivery">{-deliveryExpanse}</span>
-    </p>
-    <p>
-      Итого:{' '}
-      <span className="t-total">
+      Summary:{' '}
+      <span className="summary">
         {profit - marketExpanse - farmExpanse - deliveryExpanse}
       </span>
     </p>
   </div>
 );
 
-const changeState = state => {
-  return {
-    profit: state.budget.profit,
-    farmExpanse: state.budget.farmExpanse,
-    deliveryExpanse: state.budget.deliveryExpanse,
-    marketExpanse: state.budget.marketExpanse
-  };
-};
+const mapStateToProps = state => ({
+  profit: state.budget.profit,
+  marketExpanse: state.budget.marketExpanse,
+  farmExpanse: state.budget.farmExpanse,
+  deliveryExpanse: state.budget.deliveryExpanse
+});
 
-export default connect(changeState)(Budget);
+export default connect(mapStateToProps)(Budget);
