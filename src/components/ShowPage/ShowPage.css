@@ -1,0 +1,10 @@
+.show-page {
+  margin: 10px;
+  font-size: 12px;
+  border-radius: 7px;
+}
+
+.actors {
+  display: flex;
+  justify-content: space-evenly;
+}

@@ -4,46 +4,50 @@ import { connect } from 'react-redux';
 import { showRequest } from '../../actions/show';
 
 export class ShowPage extends Component {
-  componentWillUpdate() {
+  componentWillMount() {
     const { showRequest, match } = this.props;
     showRequest(match.params.id);
+    console.log(this.props, 'show');
   }
 
   render() {
-    const { entity } = this.props;
-
-    if (!entity.name) {
+    const { show } = this.props;
+    if (!show.name) {
       return null;
     }
 
     return (
-      <div>
-        <Fragment>
-          <p>{entity.name}</p>
-          {entity.image && <img src={entity.image.medium} alt={entity.name} />}
+      <Fragment>
+        <div className="show-page">
+          <p>{show.name}</p>
+          {show.image && <img src={show.image.medium} alt={show.name} />}
           <div
             className="show-summary"
-            dangerouslySetInnerHTML={{ __html: entity.summary }}
+            dangerouslySetInnerHTML={{ __html: show.summary }}
           />
           <div className="actors">
-            {entity._embedded.cast.map(({ person }, index) => (
+            {show._embedded.cast.map(({ person }, index) => (
               <div key={index} className="show-person">
                 <p>{person.name}</p>
                 {person.image && (
-                  <img alt={person.name} src={person.image.medium} />
+                  <img
+                    alt={person.name}
+                    width="150px"
+                    src={person.image.medium}
+                  />
                 )}
               </div>
             ))}
           </div>
-        </Fragment>
-      </div>
+        </div>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
   isFetching: state.shows.isFetching,
-  entity: state.shows.entity
+  show: state.shows.show
 });
 
 const mapDispatchToProps = {

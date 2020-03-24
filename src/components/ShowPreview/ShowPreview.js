@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 export default class ShowPreview extends Component {
   render() {
     const { id, name, image, summary } = this.props;
-    console.log(this.props);
-    console.log(image, 'id');
     return (
       <div className="result-preview">
         <div className="results-preview__title">

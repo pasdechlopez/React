@@ -10,12 +10,12 @@ export default handleActions(
     [showSuccess]: (state, action) => ({
       ...state,
       isFetching: false,
-      result: action.payload
+      show: action.payload
     }),
     [showFailure]: state => ({
       ...state,
       isFetching: false
     })
   },
-  { entity: {}, isFetching: false }
+  { show: {}, isFetching: false }
 );

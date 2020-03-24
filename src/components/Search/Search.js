@@ -27,15 +27,23 @@ export class Search extends Component {
     });
     this.props.searchRequest(this.state.searchValue);
   };
+  getRandomInt = () => {
+    return Math.floor(Math.random() * Math.floor(46700));
+  };
+
+  handleRandom = shows => {
+    this.setState({
+      searchValue: ''
+    });
+    this.props.searchRequest();
+  };
 
   render() {
-    const { result, isFetching, error } = this.props;
-    console.log(this.props, 'thi');
-    if (isFetching) {
+    const { result, isFetching, error, random } = this.props;
+    console.log(this.props);
+    if (result && isFetching) {
       return <p>Search in progress</p>;
-    }
-
-    if (error) {
+    } else if (error) {
       return <p>Error: {error}</p>;
     }
 
@@ -52,6 +60,12 @@ export class Search extends Component {
           <button className="search__button" onClick={this.handleChange}>
             Search
           </button>
+          <button
+            className="search__button-random"
+            onClick={() => this.handleRandom(result.length)}
+          >
+            Wish me luck
+          </button>
         </div>
 
         <div className="shows">
@@ -61,6 +75,7 @@ export class Search extends Component {
               id={series.id}
               name={series.name}
               summary={series.summary}
+              image={series.image}
             />
           ))}
         </div>
