@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import ShowPage from '../ShowPage';
 import Search from '../Search';
@@ -11,7 +11,6 @@ class App extends Component {
         <Switch>
           <Route path="/" component={Search} exact />
           <Route path="/show/:id" component={ShowPage} />
-          <Redirect to="/" />
         </Switch>
       </div>
     );

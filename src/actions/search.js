@@ -1,6 +1,6 @@
-import {createActions} from 'redux-actions';
+import { createActions } from 'redux-actions';
 
-export default const {searchRequest, searchSuccess, searchFailure} = createActions(
+export const { searchRequest, searchSuccess, searchFailure } = createActions(
   'SEARCH_REQUEST',
   'SEARCH_SUCCESS',
   'SEARCH_FAILURE'

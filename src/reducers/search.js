@@ -1,19 +1,22 @@
-import React from 'react';
-import handleActions from 'redux-actions';
-import {searchRequest, searchFailure, searchSuccess} from '../actions/search';
+import { handleActions } from 'redux-actions';
+import { searchRequest, searchSuccess, searchFailure } from '../actions/search';
 
-
-export default handleActions (
-    {
-        [searchRequest.toString()]: state => ({
-            ...state,
-            isFetching: true
-        }),
-        [searchSuccess.toString()]: (state, action) => ({
-            ...state,
-            isFetching: false,
-            
-        }),
-
-
+export default handleActions(
+  {
+    [searchSuccess]: (state, action) => ({
+      ...state,
+      isFetching: false,
+      result: action.payload
+    }),
+    [searchRequest]: state => ({
+      ...state,
+      isFetching: true
+    }),
+    [searchFailure]: (state, action) => ({
+      ...state,
+      error: action.error,
+      isFetching: false
+    })
+  },
+  { isFetching: false, result: [], error: null }
 );

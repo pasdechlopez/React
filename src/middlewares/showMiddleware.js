@@ -1,19 +1,16 @@
-import { search } from '../api';
+import { showRequest, showSuccess, showFailure } from '../actions/show';
+import { show } from '../api';
 
-import { searchRequest, searchSuccess, searchFailure } from '../actions/search';
-
-const searchMiddleware = (store, action, next) => {
-  if (action.type === searchRequest.toString()) {
-    search(action.payload)
-      .then(result => {
-        store.dispatch(searchSuccess(result));
+export default store => next => action => {
+  if (action.type === showRequest.toString()) {
+    show(action.payload)
+      .then(series => {
+        store.dispatch(showSuccess(series));
       })
       .catch(error => {
-        store.dispatch(searchFailure(error));
+        store.dispatch(showFailure(error));
       });
   }
 
   return next(action);
 };
-
-export default searchMiddleware;

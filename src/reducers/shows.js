@@ -1,19 +1,21 @@
-import React from 'react';
-import handleActions from 'redux-actions';
-import {showRequest, showFailure, showSuccess} from '../actions/show';
+import { handleActions } from 'redux-actions';
+import { showRequest, showSuccess, showFailure } from '../actions/show';
 
-
-export default handleActions (
-    {
-        [showRequest.toString()]: state => ({
-            ...state,
-            isFetching: true
-        }),
-        [showSuccess.toString()]: (state, action) => ({
-            ...state,
-            isFetching: false,
-            
-        }),
-
-
+export default handleActions(
+  {
+    [showRequest]: state => ({
+      ...state,
+      isFetching: true
+    }),
+    [showSuccess]: (state, action) => ({
+      ...state,
+      isFetching: false,
+      result: action.payload
+    }),
+    [showFailure]: state => ({
+      ...state,
+      isFetching: false
+    })
+  },
+  { entity: {}, isFetching: false }
 );

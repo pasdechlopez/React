@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 
-export const { showRequest, showSuccess, showFailure } = createActions(
+export const { showRequest, showFailure, showSuccess } = createActions(
   'SHOW_REQUEST',
-  'SHOW_SUCCESS',
-  'SHOW_FAILURE'
+  'SHOW_FAILURE',
+  'SHOW_SUCCESS'
 );
