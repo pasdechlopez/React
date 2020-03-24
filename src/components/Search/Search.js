@@ -16,10 +16,12 @@ export class Search extends Component {
   };
   handleSubmit = event => {
     return (
-      event.key === 'Enter' && this.state.searchValue !== '' && this.handles()
+      event.key === 'Enter' &&
+      this.state.searchValue !== '' &&
+      this.handleChange()
     );
   };
-  handles = event => {
+  handleChange = event => {
     this.setState({
       searchValue: ''
     });
@@ -28,7 +30,7 @@ export class Search extends Component {
 
   render() {
     const { result, isFetching, error } = this.props;
-
+    console.log(this.props, 'thi');
     if (isFetching) {
       return <p>Search in progress</p>;
     }
@@ -47,7 +49,7 @@ export class Search extends Component {
             onChange={this.changeSearchValue}
             value={this.state.searchValue}
           />
-          <button className="search__button" onClick={this.handles}>
+          <button className="search__button" onClick={this.handleChange}>
             Search
           </button>
         </div>
