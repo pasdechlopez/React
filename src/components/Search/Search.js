@@ -1,8 +1,10 @@
 import './Search.css';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { searchRequest } from '../../actions/search';
 import ShowPreview from '../ShowPreview';
+import { getRandomInt } from '../../middlewares/searchMiddleware';
 
 export class Search extends Component {
   state = {
@@ -21,26 +23,14 @@ export class Search extends Component {
       this.handleChange()
     );
   };
-  handleChange = event => {
-    this.setState({
-      searchValue: ''
-    });
-    this.props.searchRequest(this.state.searchValue);
-  };
-  getRandomInt = () => {
-    return Math.floor(Math.random() * Math.floor(46700));
-  };
 
-  handleRandom = shows => {
-    this.setState({
-      searchValue: ''
-    });
-    this.props.searchRequest();
-  };
+  handleChange = () => this.props.searchRequest(this.state.searchValue);
+  handleRandom = () => this.props.history.push(`/shows/${getRandomInt(30000)}`);
+  // handleRandom = () =>
+  //   this.props.searchRequest(this.state.searchValue, { luck: true });
 
   render() {
-    const { result, isFetching, error, random } = this.props;
-    console.log(this.props);
+    const { result, isFetching, error } = this.props;
     if (result && isFetching) {
       return <p>Search in progress</p>;
     } else if (error) {
@@ -60,10 +50,7 @@ export class Search extends Component {
           <button className="search__button" onClick={this.handleChange}>
             Search
           </button>
-          <button
-            className="search__button-random"
-            onClick={() => this.handleRandom(result.length)}
-          >
+          <button className="search__button-random" onClick={this.handleRandom}>
             Wish me luck
           </button>
         </div>
@@ -94,4 +81,4 @@ const mapDispatchToProps = {
   searchRequest
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Search));
