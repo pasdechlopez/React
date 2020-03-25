@@ -6,10 +6,11 @@
 // redux devtools.
 
 import React, { Component } from 'react';
-import Followers from '../Followers';
+import { connect } from 'react-redux';
+// import Followers from '../Followers';
 
-export default class UserPage extends Component {
-  componentDidUpdate() {}
+export class UserPage extends Component {
+  // componentDidUpdate() {}
 
   render() {
     const { username, userImage, followers, isFetching, data } = this.props;
@@ -19,14 +20,22 @@ export default class UserPage extends Component {
     }
     return (
       <div className="user-info">
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
         <h2>{username}</h2>
         {userImage && <img alt="user-image" width="100px" />}
         <p className="user-info__followers">{followers}</p>
-        <Followers login={this.username} />
+        {/* <Followers login={this.username} /> */}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    userImage: state.userImage,
+    followers: state.followers,
+    isFetching: state.isFetching
+  };
+};
+
+export defau      lt connect(mapStateToProps, null)(UserPage);
