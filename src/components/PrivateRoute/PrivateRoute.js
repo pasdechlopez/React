@@ -1,7 +1,7 @@
 import React from 'react';
 import { AuthHoc } from 'components/AuthorizeProvider';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthHOC } from 'components/AuthorizeProvider';
+// import { AuthHOC } from 'components/AuthorizeProvider';
 
  export default class PrivateRoute extends React.Component {
   render() {

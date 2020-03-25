@@ -7,7 +7,7 @@ import {
   removeTokenFromLocalStorage
 } from 'localStorage';
 
-function* authFlow() {
+export default function* authFlow() {
   while (true) {
     const isAuthorized = yield select(getIsAuthorized);
     const localStorageToken = yield call(getTokenFromLocalStorage);

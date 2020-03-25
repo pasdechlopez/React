@@ -1,11 +1,16 @@
 import React from 'react';
-import { Switch, Route, Link, Redirect, PrivateRoute } from 'react-router-dom';
+import { Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import Login from '../Login/Login';
+import {
+  getIsAuthorized,
+  getIsNetworkErrorPresent,
+  getMessage
+} from '../../ducks';
+import { connect } from 'react-redux';
 
-export default class AppRouter extends React.Component {
+export class AppRouter extends React.Component {
   render() {
-    const {
-      isAuthorized, isError, errorMessage
-    } = this.props;
+    // const { isAuthorized, isError, errorMessage } = this.props;
     return (
       <div className="app-router">
         <Switch>
@@ -16,22 +21,21 @@ export default class AppRouter extends React.Component {
       </div>
     );
   }
-
-const mapStateToProps = state => {
-  return {
-     isAuthorized: getIsAuthorized(state),
-     isErrorExist: getIsNetworkErrorPresent(state),
-     errorMessage: getMessage(state)
-  };
-};
-
-const mapDispatchToProps = {
-  logout
-};
 }
-export default withRouter(
-  connect(
-     mapStateToProps,
-     mapDispatchToProps
-  )(AppRouter)
-);
+
+// const mapStateToProps = state => {
+//   return {
+//     isAuthorized: getIsAuthorized(state),
+//     isErrorExist: getIsNetworkErrorPresent(state),
+//     errorMessage: getMessage(state)
+//   };
+// };
+
+// const mapDispatchToProps = {
+//   // logout
+// };
+// export default withRouter(
+//   connect(mapStateToProps, mapDispatchToProps)(AppRouter)
+// );
+
+export default withRouter(connect()(AppRouter));
