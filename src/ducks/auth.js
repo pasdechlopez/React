@@ -1,1 +1,1 @@
-authorize, logout, getIsAuthorized;
+// authorize, logout, getIsAuthorized;

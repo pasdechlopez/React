@@ -10,15 +10,16 @@ import React, { Component } from 'react';
 import Followers from '../Followers';
 
 
-class UserPage extends Component {
+export default class UserPage extends Component {
 
   componentDidUpdate() {
 
   };
 
+  
   render() {
-    const {username, userImage, followers} = this.props;
-
+    const {username, userImage, followers, isFetching, data} = this.props;
+      // <SPINER></SPINER> ???
     if (isFetching == false && username == null) {
       console.log('Error: no such user found')
     }
