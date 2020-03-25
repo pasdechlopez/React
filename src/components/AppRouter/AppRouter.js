@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
-import ShowPage from '../ShowPage';
-import Search from '../Search';
+export default class AppRouter extends React.Component {
 
-class App extends Component {
   render() {
     return (
-      <div className="app">
-        <Switch>
-          <Route path="/" component={Search} exact />
-          <Route path="/shows/:id" component={ShowPage} />
-        </Switch>
-      </div>
+    <div className="app-router">
+      <Switch>
+        <Route path="/users/me" component={} exact />
+        <PrivateRoute path="/user/:name" />
+        <Route path="/login" component={} exact />
+      </Switch>
+    </div>
     );
   }
 }
-
-export default App;
