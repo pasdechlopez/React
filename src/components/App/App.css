@@ -29,3 +29,21 @@
   font-size: 12px;
 }
 link:visited { text-decoration: none; }
+
+.follower-image {
+  border-radius: 4px;
+  margin: 7px;
+}
+
+.followers {
+  display: flex;
+  flex-wrap: wrap;
+justify-content: space-between;
+}
+
+.follower {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  font-size: 12px;
+}

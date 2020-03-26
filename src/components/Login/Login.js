@@ -6,8 +6,6 @@ import UserPage from '../UserPage/UserPage';
 import { handleUsername, submitForm } from '../../actions/actions';
 
 class Api extends React.Component {
-  // const { username, userImage, followers, grabbedData } = this.props;
-
   handleChange = e => {
     this.props.handleUsername(e);
   };
@@ -16,9 +14,15 @@ class Api extends React.Component {
     e.preventDefault();
     this.props.submitForm(e, this.props.username);
   };
-
+  // if (this.props.followers == '') {
+  //   return (
+  //     <div className="404">
+  //       No such user found :(
+  //     </div>
+  //   )
+  // }
+  // console.log(this.props)
   render() {
-    console.log(this.props, 'username', this.props);
     return (
       <div className="get-data">
         <input

@@ -19,12 +19,15 @@ export class UserPage extends Component {
       image_url,
       followers,
       following,
-      followersList
+      followersList,
+      message
     } = this.props;
-    console.log('followersList', followersList);
 
-    for (let i = 0; i < followersList.length; i++) {
-      console.log(followersList[i].login);
+    // for (let i = 0; i < followersList.length; i++) {
+    //   console.log(followersList[i].login);
+    // }
+    if (this.props.username == '') {
+      return <div className="404">No such user found :(</div>;
     }
 
     return (
@@ -45,7 +48,7 @@ export class UserPage extends Component {
           <Link to="/following">Following: {following}</Link>
         </p>
 
-        <Followers />
+        {/* <Followers /> */}
       </div>
     );
   }

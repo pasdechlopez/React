@@ -25,6 +25,7 @@ const reducer = (state = initState, action) => {
         following: gitResponse.following,
         followers: gitResponse.followers,
         image_url: gitResponse.avatar_url,
+        message: gitResponse.message,
         followersList: followersList
       };
     } else {
