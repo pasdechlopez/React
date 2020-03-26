@@ -1,47 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as reactStore from '../../actions/actions';
+// import * as reactStore from '../../actions/actions';
 // import '../App.css';
 import UserPage from '../UserPage/UserPage';
-import { handleUsername, submitForm } from '../../actions/actions';
+import { handleUsername, submitForm } from '../../actions/search';
+// import * as reactStore from '../../actions/search';
+// import { submitForm } from '../../github';
 
 class Api extends React.Component {
-  handleChange = e => {
-    this.props.handleUsername(e);
+  state = {
+    searchValue: ''
   };
 
-  handleSubmitForm = e => {
-    e.preventDefault();
-    return this.props.submitForm(e, this.props.username);
+  changeSearchValue = event => {
+    this.setState({
+      searchValue: event.target.value
+    });
   };
-  handleEnter = e => {
-    return e.key === 'Enter' && this.props.submitForm(e, this.props.username);
+
+  handleSubmit = event => {
+    return (
+      event.key === 'Enter' &&
+      this.state.searchValue !== '' &&
+      this.handleChange()
+    );
   };
-  // if (this.props.followers == '') {
-  //   return (
-  //     <div className="404">
-  //       No such user found :(
-  //     </div>
-  //   )
-  // }
+
+  handleChange = () => this.props.submitForm(this.state.searchValue);
 
   render() {
-    console.log(this.props, 'login comp');
-
+    const { username } = this.props;
+    console.log(username, 'props from login');
     return (
       <div className="get-data">
         <input
           type="text"
           placeholder="Type ur github login"
           name="username"
-          onChange={this.handleChange}
+          onKeyPress={this.handleSubmit}
+          onChange={this.changeSearchValue}
           id="username"
+          value={this.state.searchValue}
         />
-        <button
-          className="login-button"
-          onClick={this.handleSubmitForm}
-          onKeyPress={this.handleEnter}
-        >
+        <button className="login-button" onClick={this.handleChange}>
           Submit!
         </button>
         {<UserPage />}
@@ -61,11 +62,13 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleUsername: e => dispatch(reactStore.handleUsername(e)),
-    submitForm: (e, username) => dispatch(reactStore.submitForm(e, username))
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     handleUsername: e => dispatch(handleUsername(e)),
+//     // submitForm
+//     // submitForm
+//     submitForm: payload => dispatch(submitForm(payload))
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Api);
+export default connect(mapStateToProps, { handleUsername, submitForm })(Api);

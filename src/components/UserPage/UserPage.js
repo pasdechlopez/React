@@ -21,14 +21,13 @@ export class UserPage extends Component {
       choosenUser,
       message
     } = this.props;
-    if (choosenUser == '') {
-      return <div className="404">No such user found :(</div>;
-    }
-    if (!followers) {
-      return <div></div>;
-    }
-
-    console.log('message', message);
+    // if (choosenUser == '') {
+    //   return <div className="404">No such user found :(</div>;
+    // }
+    // if (!followers) {
+    //   return <div></div>;
+    // }
+    console.log(this.props, 'props');
     return (
       <div className="user-info">
         <h2>{choosenUser}</h2>

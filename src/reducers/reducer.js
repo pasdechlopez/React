@@ -1,14 +1,3 @@
-let initState = {
-  username: '',
-  repos: '',
-  following: '',
-  followers: '',
-  grabbedData: false,
-  message: '',
-  image_url: '',
-  followersList: {}
-};
-
 const reducer = (state = initState, action) => {
   if (action.type === 'HANDLE_USERNAME') {
     return {
@@ -20,14 +9,7 @@ const reducer = (state = initState, action) => {
     let followersList = action.followersList;
     if (gitResponse.public_repos) {
       return {
-        ...state,
-        choosenUser: gitResponse.login,
-        repos: gitResponse.public_repos,
-        following: gitResponse.following,
-        followers: gitResponse.followers,
-        image_url: gitResponse.avatar_url,
-        message: gitResponse.message,
-        followersList: followersList
+        ...state
       };
     } else if (action.type === 'ERROR') {
       return {

@@ -14,7 +14,9 @@ export class Followers extends Component {
     return (
       <div className="followers">
         {followers.map(function(follower, index) {
-          console.log(follower.login, 'name');
+          {
+            /* console.log(follower.login, 'name'); */
+          }
 
           return (
             <div key={index} className="follower">

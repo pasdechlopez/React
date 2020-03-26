@@ -1,15 +1,10 @@
-export const submitForm = (e, username) => {
-  e.persist();
-  return async () => {
-    try {
-      const resp = await fetch(`https://api.github.com/users/${username}`);
-      const data = await resp.json();
-      const respFollowers = await fetch(data.followers_url);
-      const followersList = await respFollowers.json();
-    } catch (er) {
-      console.log(er);
-    }
-  };
+import { call } from 'redux-saga/effects';
+
+export const fetchData = async username => {
+  let response = await fetch(`https://api.github.com/users/${username}`);
+  console.warn(response);
+  let data = await response.json();
+  return data;
 };
 
 export const getUserFollowers = (e, login) => {
@@ -21,3 +16,25 @@ export const getUserFollowers = (e, login) => {
     const data = await response.json();
   };
 };
+
+//----------
+export const fetchUser = ({ username }) =>
+  fetch(`https://api.github.com/users/${username}`, {
+    method: 'GET'
+  });
+
+export function* networkRequest(apiFn, apiArgs) {
+  try {
+    const response = yield call(apiFn, apiArgs);
+
+    if (response.ok) {
+      const data = yield response.json();
+      return data;
+    } else {
+      throw response;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

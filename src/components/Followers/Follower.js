@@ -20,12 +20,7 @@ export class UserPage extends Component {
       following,
       choosenUser
     } = this.props;
-    // if (choosenUser == '') {
-    //   return <div className="404">No such user found :(</div>;
-    // }
-    // if (!followers) {
-    //   return <div></div>;
-    // }
+
     console.log('follower page inited');
 
     return (
@@ -52,13 +47,7 @@ const mapStateToProps = state => {
   return {
     username: state.username,
     userImage: state.userImage,
-    followers: state.followers,
-    following: state.following,
-    isFetching: state.isFetching,
-    grabbedData: state.grabbedData,
-    image_url: state.image_url,
-    followersList: state.followersList,
-    choosenUser: state.choosenUser
+    followers: state.followers
   };
 };
 

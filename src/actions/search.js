@@ -1,7 +1,15 @@
-import {createActions} from 'redux-actions';
+import { createActions } from 'redux-actions';
 
-export const { handleUsername, submitForm, handleFollowers } = createActions (
+export const {
+  handleUsername,
+  submitForm,
+  handleFollowers,
+  searchSuccess,
+  searchFailure
+} = createActions(
   'HANDLE_USERNAME',
   'SUBMIT_FORM',
-  'HANDLE_FOLLOWERS'
+  'HANDLE_FOLLOWERS',
+  'SEARCH_SUCCESS',
+  'SEARCH_FAILURE'
 );
