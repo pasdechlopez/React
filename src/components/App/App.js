@@ -4,6 +4,7 @@ import Login from '../Login/Login';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import Followers from '../Followers/Followers';
+import Follower from '../Followers/Follower';
 
 export default class App extends React.Component {
   render() {
@@ -14,7 +15,9 @@ export default class App extends React.Component {
             <Login />
           </Route>
           <Route path="/followers" component={Followers} />
-          <Route path="/follower:url" component={Followers} />
+          <Route path="/followers/:id">
+            <Follower />
+          </Route>
         </Switch>
       </div>
     );

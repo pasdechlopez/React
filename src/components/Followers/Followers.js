@@ -18,30 +18,23 @@ export class Followers extends Component {
 
           return (
             <div key={index} className="follower">
-              <Link to={`${follower.url}`}>{follower.login}</Link>
+              <Link className="follower" to={`/followers/${follower.id}`}>
+                {follower.login}
 
-              <img
-                alt="user-image"
-                className="follower-image"
-                src={follower.avatar_url}
-                width="50px"
-              />
+                {follower.avatar_url && (
+                  <img
+                    alt="user-image"
+                    className="follower-image"
+                    src={follower.avatar_url}
+                    width="50px"
+                  />
+                )}
+              </Link>
             </div>
           );
         })}
       </div>
     );
-    // return (
-    //   <div className="followers">
-    //     {for (let i = 0; i < followersList.length; i++) {
-    //       return (
-    //         <div key={i} className="follower">
-    //           {followersList[i].username}
-    //         </div>
-    //       );
-    //     })}
-    //   </div>
-    // );
   }
 }
 

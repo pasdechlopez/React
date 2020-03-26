@@ -18,20 +18,19 @@ export class UserPage extends Component {
       image_url,
       followers,
       following,
-      choosenUser,
-      message
+      choosenUser
     } = this.props;
-    if (choosenUser == '') {
-      return <div className="404">No such user found :(</div>;
-    }
-    if (!followers) {
-      return <div></div>;
-    }
+    // if (choosenUser == '') {
+    //   return <div className="404">No such user found :(</div>;
+    // }
+    // if (!followers) {
+    //   return <div></div>;
+    // }
+    console.log('follower page inited');
 
-    console.log('message', message);
     return (
-      <div className="user-info">
-        <h2>{choosenUser}</h2>
+      <div className="folloooooooooooooo">
+        {/* <h2>{choosenUser}</h2>
         {image_url && (
           <img
             alt="user-image"
@@ -43,7 +42,7 @@ export class UserPage extends Component {
         <p className="user-info__followers user-info">
           <Link to="/followers">Followers: {followers}</Link>
         </p>
-        <p className="user-info__following user-info">Following: {following}</p>
+        <p className="user-info__following user-info">Following: {following}</p> */}
       </div>
     );
   }

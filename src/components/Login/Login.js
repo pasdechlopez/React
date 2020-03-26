@@ -12,7 +12,10 @@ class Api extends React.Component {
 
   handleSubmitForm = e => {
     e.preventDefault();
-    this.props.submitForm(e, this.props.username);
+    return this.props.submitForm(e, this.props.username);
+  };
+  handleEnter = e => {
+    return e.key === 'Enter' && this.props.submitForm(e, this.props.username);
   };
   // if (this.props.followers == '') {
   //   return (
@@ -21,8 +24,10 @@ class Api extends React.Component {
   //     </div>
   //   )
   // }
-  // console.log(this.props)
+
   render() {
+    console.log(this.props, 'login comp');
+
     return (
       <div className="get-data">
         <input
@@ -32,10 +37,14 @@ class Api extends React.Component {
           onChange={this.handleChange}
           id="username"
         />
-        <button className="login-button" onClick={this.handleSubmitForm}>
+        <button
+          className="login-button"
+          onClick={this.handleSubmitForm}
+          onKeyPress={this.handleEnter}
+        >
           Submit!
         </button>
-        {this.props.followers !== '' && <UserPage />}
+        {<UserPage />}
       </div>
     );
   }
@@ -47,7 +56,8 @@ const mapStateToProps = state => {
     repos: state.repos,
     followers: state.followers,
     message: state.message,
-    image_url: state.image_url
+    image_url: state.image_url,
+    choosenUser: state.choosenUser
   };
 };
 

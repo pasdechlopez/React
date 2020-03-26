@@ -21,6 +21,7 @@ const reducer = (state = initState, action) => {
     if (gitResponse.public_repos) {
       return {
         ...state,
+        choosenUser: gitResponse.login,
         repos: gitResponse.public_repos,
         following: gitResponse.following,
         followers: gitResponse.followers,
@@ -28,6 +29,12 @@ const reducer = (state = initState, action) => {
         message: gitResponse.message,
         followersList: followersList
       };
+    } else if (action.type === 'ERROR') {
+      return {
+        ...state,
+        message: action.message
+      };
+      console.log('ERRROR');
     } else {
       return {
         ...state,
