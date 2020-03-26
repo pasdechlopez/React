@@ -1,0 +1,31 @@
+.user-info {
+  margin: 10px;
+}
+
+#root {
+  margin: 15px;
+  font-family: sans-serif;
+  background: rgba(250, 58, 0, 0.1);
+  width: 600px;
+  border-radius: 4px;
+}
+.get-data {
+  padding: 10px;
+}
+.user-image {
+  border-radius: 4px;
+  box-shadow: 2px 2px;
+
+}
+
+.login-button {
+  background: rgba(230, 206, 97, 0.1);
+  margin-left: 3px;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.user-info {
+  font-size: 12px;
+}
+link:visited { text-decoration: none; }

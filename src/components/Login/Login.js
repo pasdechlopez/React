@@ -1,93 +1,49 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-
-// export class Login extends Component {
-//   state = {
-//     login: '',
-//     token: ''
-//   };
-
-//   componentDidUpdate() {}
-//   handleChange = () => {};
-
-//   handleSubmit = event => {
-//     return (
-//       event.key === 'Enter' && event.state.login !== '' && this.handleChange()
-//     );
-//   };
-
-//   render() {
-//     return (
-//       <div className="login">
-//         <div className="login__login-input">
-//           <input
-//             type="text"
-//             onChange={this.handleChange}
-//             placeholder="type ur login"
-//           />
-//         </div>
-//         <div className="login__token-input">
-//           {/* <input type="text" placeholder="type ur token" /> */}
-//           <button onSubmit={this.handleSubmit}>Submit!</button>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// // const mapStateToProps = state => {
-// //   return isAuthorized.getIsAuthorized(state);
-// // };
-
-// // const mapDispatchToProps = {
-// //   authorize
-// // };
-
-// // export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-// export default connect()(Login);
-import React, { Fragment, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import * as reactStore from '../store/actions/action';
-import '../App.css';
+import * as reactStore from '../../actions/actions';
+// import '../App.css';
 import UserPage from '../UserPage/UserPage';
+import { handleUsername, submitForm } from '../../actions/actions';
 
-const Api = props => {
-  const { username, userImage, followers, grabbedData } = this.props;
+class Api extends React.Component {
+  // const { username, userImage, followers, grabbedData } = this.props;
 
-  const handleChange = e => {
-    props.handleUsername(e);
+  handleChange = e => {
+    this.props.handleUsername(e);
   };
 
-  const handleSubmitForm = e => {
+  handleSubmitForm = e => {
     e.preventDefault();
-    props.submitForm(e, username);
+    this.props.submitForm(e, this.props.username);
   };
 
-  if (props.grabbedData === true) {
-    return <UserPage />;
+  render() {
+    console.log(this.props, 'username', this.props);
+    return (
+      <div className="get-data">
+        <input
+          type="text"
+          placeholder="Type ur github login"
+          name="username"
+          onChange={this.handleChange}
+          id="username"
+        />
+        <button className="login-button" onClick={this.handleSubmitForm}>
+          Submit!
+        </button>
+        {this.props.followers !== '' && <UserPage />}
+      </div>
+    );
   }
-
-  return (
-    <div className="getData">
-      <input
-        type="text"
-        placeholder="Type ur github login"
-        name="username"
-        onChange={handleChange}
-        id="username"
-      />
-      <button onClick={handleSubmitForm}>Submit!</button>
-    </div>
-  );
-};
+}
 
 const mapStateToProps = state => {
   return {
     username: state.username,
     repos: state.repos,
     followers: state.followers,
-    message: state.message
+    message: state.message,
+    image_url: state.image_url
   };
 };
 
