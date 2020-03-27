@@ -5,11 +5,13 @@ export const {
   submitForm,
   handleFollowers,
   searchSuccess,
-  searchFailure
+  handleFailure,
+  handleFollowersPage
 } = createActions(
   'HANDLE_USERNAME',
   'SUBMIT_FORM',
   'HANDLE_FOLLOWERS',
   'SEARCH_SUCCESS',
-  'SEARCH_FAILURE'
+  'HANDLE_FAILURE',
+  'HANDLE_FOLLOWERS_PAGE'
 );

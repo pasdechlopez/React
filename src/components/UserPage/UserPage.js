@@ -1,48 +1,69 @@
-// Посмотрите, какие данные и логику нужно расположить на странице, в случае с
-// UserPage, нужно получить данные по пользователю, значит отправить экшен о
-// получении данных. Так как нужно совершить запрос, вам понадобится 3 экшена,
-// флаги сетевых запросов, редьюсер для данных и для ошибки. После отправки экшена,
-// нужно убедиться что экшен действительно отправляется, это удобно делать через
-// redux devtools.
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Followers from '../Followers/Followers';
+// import Followers from '../Followers/Followers';
 import { Link } from 'react-router-dom';
+import { handleFollowers } from '../../actions/search';
 
 export class UserPage extends Component {
   render() {
-    console.log('userpage inited', this.props);
-    const {
-      username,
-      image_url,
-      followers,
-      following,
-      choosenUser,
-      message
-    } = this.props;
-    // if (choosenUser == '') {
-    //   return <div className="404">No such user found :(</div>;
-    // }
-    // if (!followers) {
-    //   return <div></div>;
-    // }
-    console.log(this.props, 'props');
+    const { user, choosenUser, handleFollowers } = this.props;
+    console.log(this.props, 'props from userpage');
+    console.log('props from userpage', this.state);
+
+    if (user == undefined) {
+      return <div className="handle-error">NO USER FOUND</div>;
+    }
     return (
       <div className="user-info">
-        <h2>{choosenUser}</h2>
-        {image_url && (
-          <img
-            alt="user-image"
-            className="user-image"
-            src={image_url}
-            width="100px"
-          />
-        )}
-        <p className="user-info__followers user-info">
-          <Link to="/followers">Followers: {followers}</Link>
-        </p>
-        <p className="user-info__following user-info">Following: {following}</p>
+        <div className="user-info__main">
+          <div className="user-info__text-main">
+            {' '}
+            {<h2>Name: {user.name}</h2>}
+            {<h3>Id: {user.id}</h3>}
+          </div>
+
+          <div className="user-info__text">
+            {
+              <div className="user-info__text-wrapper">
+                <div className="user-info__text-header">Login: </div>{' '}
+                {user.login}
+              </div>
+            }
+            {
+              <div className="user-info__text-wrapper">
+                {' '}
+                <div className="user-info__text-header">Company: </div>{' '}
+                {user.company}
+              </div>
+            }
+            {
+              <div className="user-info__text-wrapper">
+                <div className="user-info__text-header">Blog: </div>{' '}
+                <a href={`${user.blog}`}>{user.blog}</a>
+              </div>
+            }
+            {
+              <div className="user-info__text-wrapper">
+                {' '}
+                <div className="user-info__text-header">Location: </div>{' '}
+                {user.location}
+              </div>
+            }
+          </div>
+        </div>
+        <div className="user_info__addition">
+          {user.avatar_url && (
+            <img src={user.avatar_url} className="user-image" width="110px" />
+          )}
+          <p className="user-info__followers user-info">
+            <Link to="/followers" onClick={() => handleFollowers(choosenUser)}>
+              Followers: {user.followers}
+            </Link>
+          </p>
+          <p className="user-info__following user-info">
+            Following: {user.following}
+          </p>
+        </div>
       </div>
     );
   }
@@ -50,16 +71,11 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.username,
+    user: state.user,
     userImage: state.userImage,
-    followers: state.followers,
-    following: state.following,
-    isFetching: state.isFetching,
-    grabbedData: state.grabbedData,
-    image_url: state.image_url,
-    followersList: state.followersList,
-    choosenUser: state.choosenUser
+    choosenUser: state.choosenUser,
+    followersList: state.followersList
   };
 };
 
-export default connect(mapStateToProps, null)(UserPage);
+export default connect(mapStateToProps, { handleFollowers })(UserPage);

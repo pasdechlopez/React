@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import App from './components/App/App';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducers/search';
-import mySaga from './sagas/mySaga';
+import rootSaga from './sagas/';
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
@@ -17,7 +17,7 @@ const store = createStore(
     window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
   )
 );
-sagaMiddleware.run(mySaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <BrowserRouter>

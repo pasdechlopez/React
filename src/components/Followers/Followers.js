@@ -5,19 +5,21 @@ import { Link } from 'react-router-dom';
 
 export class Followers extends Component {
   render() {
-    const { followersList } = this.props;
+    // const { followersList } = this.props;
     let followers = [];
-    for (let j = 0; j < followersList.length; j++) {
-      followers.push(followersList[j]);
+    console.log('props from followers', this.state);
+
+    console.log('props from followers', this.props);
+    // for (let j = 0; j < followersList.length; j++) {
+    //   followers.push(followersList[j]);
+    // }
+    // console.log('followersList', followers[1]);
+    if (this.props.fff) {
+      return false;
     }
-    console.log('followersList', followers[1]);
     return (
       <div className="followers">
         {followers.map(function(follower, index) {
-          {
-            /* console.log(follower.login, 'name'); */
-          }
-
           return (
             <div key={index} className="follower">
               <Link className="follower" to={`/followers/${follower.id}`}>
@@ -42,7 +44,7 @@ export class Followers extends Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.username,
+    user: state.user,
     followers: state.followers,
     followersList: state.followersList
   };
