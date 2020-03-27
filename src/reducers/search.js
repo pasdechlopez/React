@@ -1,14 +1,14 @@
 import { handleActions } from 'redux-actions';
 import {
   submitForm,
-  handleUsername,
+  handleSuccess,
   handleFollowers,
   handleFailure
 } from '../actions/search';
 
 export default handleActions(
   {
-    [handleUsername]: (state, action) => ({
+    [handleSuccess]: (state, action) => ({
       ...state,
       user: action.payload,
       error: ''

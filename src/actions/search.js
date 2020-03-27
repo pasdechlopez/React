@@ -1,14 +1,14 @@
 import { createActions } from 'redux-actions';
 
 export const {
-  handleUsername,
+  handleSuccess,
   submitForm,
   handleFollowers,
   searchSuccess,
   handleFailure,
   handleFollowersPage
 } = createActions(
-  'HANDLE_USERNAME',
+  'HANDLE_SUCCESS',
   'SUBMIT_FORM',
   'HANDLE_FOLLOWERS',
   'SEARCH_SUCCESS',

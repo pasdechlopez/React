@@ -27,7 +27,9 @@
 .user-info__text-wrapper {
   display: flex;
 }
-
+.app {
+  padding: 10px;
+}
 #root {
   margin: 15px;
   font-family: sans-serif;

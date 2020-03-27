@@ -1,11 +1,10 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { fetchUser, networkRequest } from '../github';
 import {
-  handleUsername,
+  handleSuccess,
   submitForm,
   handleFollowers,
-  handleFailure,
-  searchSuccess
+  handleFailure
 } from '../actions/search';
 
 function* fetchUserSaga(action) {
@@ -15,7 +14,7 @@ function* fetchUserSaga(action) {
     });
     console.log(action);
 
-    yield put(handleUsername(user));
+    yield put(handleSuccess(user));
   } catch (error) {
     console.error('error from saga0', error);
     yield put(handleFailure(error));

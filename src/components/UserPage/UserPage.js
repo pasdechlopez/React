@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import Followers from '../Followers/Followers';
 import { Link } from 'react-router-dom';
 import { handleFollowers } from '../../actions/search';
+import { logout } from '../../actions/auth';
 
 export class UserPage extends Component {
   render() {
@@ -15,6 +16,7 @@ export class UserPage extends Component {
     }
     return (
       <div className="user-info">
+        <button onClick={this.props.logout}> LOG OUT</button>
         <div className="user-info__main">
           <div className="user-info__text-main">
             {' '}
@@ -72,10 +74,8 @@ export class UserPage extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    userImage: state.userImage,
-    choosenUser: state.choosenUser,
-    followersList: state.followersList
+    isAuthorized: state.status
   };
 };
 
-export default connect(mapStateToProps, { handleFollowers })(UserPage);
+export default connect(mapStateToProps, { handleFollowers, logout })(UserPage);

@@ -1,33 +1,53 @@
-import { take, put, call, select } from 'redux-saga/effects';
-import { setTokenApi, clearTokenApi } from 'api';
-import { authorize, logout, getIsAuthorized } from 'ducks/auth';
+// export default function* authFlow() {
+//   while (true) {
+//     const isAuthorized = yield select(getIsAuthorized);
+//     const localStorageToken = yield call(getTokenFromLocalStorage);
+
+//     let token;
+
+//     if (!isAuthorized && localStorageToken) {
+//       token = localStorageToken;
+//       yield put(authorize());
+//     } else {
+//       const action = yield take(authorize);
+//       token = action.payload;
+//     }
+
+//     yield call(setTokenApi, token);
+//     yield call(setTokenToLocalStorage, token);
+
+//     yield take(logout);
+
+//     yield call(removeTokenFromLocalStorage);
+//     yield call(clearTokenApi);
+//   }
+// }
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { fetchUser, networkRequest } from '../github';
 import {
-  getTokenFromLocalStorage,
-  setTokenToLocalStorage,
-  removeTokenFromLocalStorage
-} from 'localStorage';
+  handleSuccess,
+  submitForm,
+  handleFollowers,
+  handleFailure
+} from '../actions/search';
+import { handleToken, authorize, validToken } from '../actions/auth';
 
-export default function* authFlow() {
-  while (true) {
-    const isAuthorized = yield select(getIsAuthorized);
-    const localStorageToken = yield call(getTokenFromLocalStorage);
+function* authUserSaga(action) {
+  try {
+    const token = yield call(networkRequest, fetchUser, {
+      token: action.payload
+    });
+    console.log(token, 'authUserSaga from auth saga');
 
-    let token;
-
-    if (!isAuthorized && localStorageToken) {
-      token = localStorageToken;
-      yield put(authorize());
-    } else {
-      const action = yield take(authorize);
-      token = action.payload;
-    }
-
-    yield call(setTokenApi, token);
-    yield call(setTokenToLocalStorage, token);
-
-    yield take(logout);
-
-    yield call(removeTokenFromLocalStorage);
-    yield call(clearTokenApi);
+    yield put(handleSuccess(token));
+  } catch (error) {
+    console.error('error from saga0', error);
+    yield put('FAILURE', (error: rrepfefij));
   }
 }
+
+function* mySaga() {
+  yield takeEvery(authorize, authUserSaga);
+}
+
+export default mySaga;

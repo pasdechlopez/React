@@ -1,55 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import * as reactStore from '../../actions/actions';
-// import '../App.css';
 import UserPage from '../UserPage/UserPage';
 import { handleUsername, submitForm } from '../../actions/search';
-// import * as reactStore from '../../actions/search';
-// import { submitForm } from '../../github';
+import { authorize, handleToken, validToken } from '../../actions/auth';
+import { setTokenApi } from '../../github';
+import { getIsAuthorized } from '../../reducers/auth';
+import { Redirect } from 'react-router-dom';
 
-class Api extends React.Component {
+class Login extends React.Component {
   state = {
-    searchValue: ''
+    tokenValue: ''
   };
 
-  changeSearchValue = event => {
+  changetokenValue = event => {
     this.setState({
-      searchValue: event.target.value
+      tokenValue: event.target.value
     });
   };
 
   handleSubmit = event => {
     return (
       event.key === 'Enter' &&
-      this.state.searchValue !== '' &&
+      this.state.tokenValue !== '' &&
       this.handleChange()
     );
   };
 
-  handleChange = () => this.props.submitForm(this.state.searchValue);
+  handleChange = () => {
+    this.props.authorize(this.state.tokenValue);
+  };
 
   render() {
-    const { user } = this.props;
-    console.log(this.props.choosenUser, 'props from login');
+    const { isAuthorized, user, error } = this.props;
+
+    if (user && user.login) {
+      return <Redirect to="/users/me" />;
+    }
+    if (error) {
+      return <div>Error: {error.status}</div>;
+    }
+    console.log(this.props, 'props from login');
 
     return (
       <div className="get-data">
         <input
           type="text"
-          placeholder="Type ur github login"
-          name="username"
+          placeholder="Type ur github token"
+          name="token auth"
           onKeyPress={this.handleSubmit}
-          onChange={this.changeSearchValue}
+          onChange={this.changetokenValue}
           id="username"
-          value={this.state.searchValue}
         />
-        <button className="login-button" onClick={this.handleChange}>
+        <button className="auth-button" onClick={this.handleChange}>
           Submit!
         </button>
-        {user && user.name && <UserPage choosenUser={this.state.searchValue} />}
-        {this.props.error && user.name !== '' && (
-          <div className="handle-failure">No user found</div>
-        )}
       </div>
     );
   }
@@ -57,20 +61,14 @@ class Api extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    username: state.username,
     error: state.error,
-    choosenUser: state.choosenUser
+    validat: state.status,
+    user: state.user,
+    error: state.error,
+    isAuthorized: state.isAuthorized
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handleUsername: e => dispatch(handleUsername(e)),
-//     // submitForm
-//     // submitForm
-//     submitForm: payload => dispatch(submitForm(payload))
-//   };
-// };
-
-export default connect(mapStateToProps, { handleUsername, submitForm })(Api);
+export default connect(mapStateToProps, { authorize, handleToken, validToken })(
+  Login
+);

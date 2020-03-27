@@ -2,7 +2,7 @@ const reducer = (state = initState, action) => {
   if (action.type === 'HANDLE_USERNAME') {
     return {
       ...state,
-      user: action.e.target.value
+      token: action.e.target.value
     };
   } else if (action.type === 'SUBMIT_FORM') {
     let gitResponse = action.data;
