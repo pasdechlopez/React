@@ -17,7 +17,7 @@ function* fetchUserSaga(action) {
 
     yield put(handleSuccess(fetchUser));
   } catch (error) {
-    console.error('error from mysaga', action);
+    console.error('error from mysaga', action.meta);
     yield put(handleFailure(error));
   }
 }

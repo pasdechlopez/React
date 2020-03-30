@@ -17,18 +17,11 @@ const searchReducer = handleActions(
       ...state,
       username: action.payload,
       currentToken: action.meta
-      //     error: '',
-      //   choosenUser: action.payload.user
     }),
     [handleFailure]: (state, action) => ({
       ...state,
       username: '',
       error: action.payload
-    }),
-    [handleFollowers]: (state, action) => ({
-      ...state,
-      followers: action.payload,
-      error: ''
     })
   },
   {

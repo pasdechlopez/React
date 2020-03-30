@@ -63,7 +63,7 @@ export class UserPage extends Component {
             <img src={user.avatar_url} className="user-image" width="110px" />
           )}
           <p className="user-info__followers user-info">
-            <Link to="/followers" onClick={() => handleFollowers(choosenUser)}>
+            <Link to="/followers" onClick={() => handleFollowers()}>
               Followers: {user.followers}
             </Link>
           </p>

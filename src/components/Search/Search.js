@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 // import '../App.css';
 import UserPage from '../UserPage/UserPage';
 import { handleSuccess, submitForm } from '../../actions/search';
-// import * as reactStore from '../../actions/search';
-// import { submitForm } from '../../github';
 
 class Api extends React.Component {
   state = {
@@ -28,13 +26,12 @@ class Api extends React.Component {
 
   handleChange = () =>
     this.props.submitForm(this.state.searchValue, {
-      currentToken: this.state.searchValue
+      currentToken: this.props.token
     });
 
   render() {
     const { user } = this.props;
     console.log(this.props, 'props from search');
-
     return (
       <div className="search">
         <input
@@ -49,7 +46,7 @@ class Api extends React.Component {
         <button className="login-button" onClick={this.handleChange}>
           Search!
         </button>
-        {/* {user && user.name && <UserPage choosenUser={this.state.searchValue} />} */}
+        {user && user.name && <UserPage />}
         {this.props.error && user.name !== '' && (
           <div className="handle-failure">No user found</div>
         )}
@@ -60,10 +57,8 @@ class Api extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state,
-    username: state.username,
+    user: state.searchReducer.user,
     error: state.error,
-    tokenValue: state,
     token: state.authReducer.token.token
   };
 };
