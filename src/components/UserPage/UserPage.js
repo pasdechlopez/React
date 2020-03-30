@@ -4,15 +4,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { handleFollowers } from '../../actions/search';
 import { logout } from '../../actions/auth';
+import { Route } from 'react-router-dom';
 
 export class UserPage extends Component {
   render() {
-    const { user, choosenUser, handleFollowers } = this.props;
+    const { user, choosenUser, handleFollowers, isAuthorized } = this.props;
     console.log(this.props, 'props from userpage');
-    console.log('props from userpage', this.state);
+    console.log('state from userpage', this.state);
 
     if (user == undefined) {
       return <div className="handle-error">NO USER FOUND</div>;
+    }
+    if (isAuthorized === false) {
+      return <Route to="/" />;
     }
     return (
       <div className="user-info">
@@ -73,8 +77,8 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    isAuthorized: state.status
+    user: state.authReducer.tokenValue,
+    isAuthorized: state.authReducer.isAuthorized
   };
 };
 

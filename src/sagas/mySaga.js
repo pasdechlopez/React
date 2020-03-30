@@ -1,5 +1,5 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
-import { fetchUser, networkRequest } from '../github';
+import { findUser, networkRequest } from '../github';
 import {
   handleSuccess,
   submitForm,
@@ -9,12 +9,12 @@ import {
 
 function* fetchUserSaga(action) {
   try {
-    const user = yield call(networkRequest, fetchUser, {
+    const fetchUser = yield call(networkRequest, findUser, {
       username: action.payload
     });
-    console.log(action);
+    console.log(fetchUser);
 
-    yield put(handleSuccess(user));
+    yield put(handleSuccess(fetchUser));
   } catch (error) {
     console.error('error from saga0', error);
     yield put(handleFailure(error));

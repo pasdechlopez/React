@@ -6,7 +6,7 @@ import {
   handleFailure
 } from '../actions/search';
 
-export default handleActions(
+const searchReducer = handleActions(
   {
     [handleSuccess]: (state, action) => ({
       ...state,
@@ -32,3 +32,5 @@ export default handleActions(
   },
   { user: {}, error: '', choosenUser: '', username: '', followers: {} }
 );
+
+export default searchReducer;

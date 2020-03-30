@@ -30,10 +30,10 @@ class Api extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log(this.props.choosenUser, 'props from login');
+    console.log(this.props, 'props from search');
 
     return (
-      <div className="get-data">
+      <div className="search">
         <input
           type="text"
           placeholder="Type ur github login"

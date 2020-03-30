@@ -2,7 +2,7 @@ import React from 'react';
 import UserPage from '../UserPage/UserPage';
 import Login from '../Login/Login';
 import Search from '../Search/Search';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import './App.css';
 import Followers from '../Followers/Followers';
@@ -13,6 +13,7 @@ import { getIsAuthorized } from '../../reducers/auth';
 
 export class App extends React.Component {
   render() {
+    // console.log('ROUTE PROPS', this.props);
     const { isAuthorized } = this.props;
     return (
       <div className="app">
@@ -20,13 +21,23 @@ export class App extends React.Component {
           <Route exact path="/">
             <Login />
           </Route>
-          <Route path="/users/me" isAuthorized={isAuthorized} exact>
-            <UserPage />
-          </Route>
-          <PrivateRoute path="/followers" component={Followers} />
-          <PrivateRoute path="/users/:id">
+          {isAuthorized && (
+            <Route to="/users/me" exact>
+              <UserPage />
+            </Route>
+          )}
+          {!isAuthorized && (
+            <Redirect to="/" exact>
+              <Login />
+            </Redirect>
+          )}
+          <Route exact path="/followers">
+            <Followers />
+          </Route>{' '}
+          {/* <PrivateRoute path="/users/me" component={UserPage} /> */}
+          {/* <PrivateRoute path="/users/:id">
             <Follower />
-          </PrivateRoute>
+          </PrivateRoute> */}
         </Switch>
       </div>
     );
@@ -34,12 +45,10 @@ export class App extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    isAuthorized: state.user,
-    token: state.token,
-    status: state.status
+    isAuthorized: state.authReducer.isAuthorized
     // isErrorExist: getIsNetworkErrorPresent(state),
     // errorMessage: getMessage(state)
   };
 };
 
-export default withRouter(connect(mapStateToProps, { authorize, logout })(App));
+export default withRouter(connect(mapStateToProps, null)(App));

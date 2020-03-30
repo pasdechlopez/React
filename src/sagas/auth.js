@@ -1,27 +1,3 @@
-// export default function* authFlow() {
-//   while (true) {
-//     const isAuthorized = yield select(getIsAuthorized);
-//     const localStorageToken = yield call(getTokenFromLocalStorage);
-
-//     let token;
-
-//     if (!isAuthorized && localStorageToken) {
-//       token = localStorageToken;
-//       yield put(authorize());
-//     } else {
-//       const action = yield take(authorize);
-//       token = action.payload;
-//     }
-
-//     yield call(setTokenApi, token);
-//     yield call(setTokenToLocalStorage, token);
-
-//     yield take(logout);
-
-//     yield call(removeTokenFromLocalStorage);
-//     yield call(clearTokenApi);
-//   }
-// }
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { fetchUser, networkRequest } from '../github';
 import {
@@ -30,24 +6,29 @@ import {
   handleFollowers,
   handleFailure
 } from '../actions/search';
-import { handleToken, authorize, validToken } from '../actions/auth';
+import {
+  handleToken,
+  authorize,
+  validToken,
+  handleError
+} from '../actions/auth';
 
 function* authUserSaga(action) {
   try {
     const token = yield call(networkRequest, fetchUser, {
-      token: action.payload
+      tokenValue: action.payload
     });
     console.log(token, 'authUserSaga from auth saga');
 
-    yield put(handleSuccess(token));
+    yield put(handleToken(token));
   } catch (error) {
-    console.error('error from saga0', error);
-    yield put('FAILURE', (error: rrepfefij));
+    console.error('error from auth saga', error);
+    yield put(handleError(error));
   }
 }
 
-function* mySaga() {
+function* auth() {
   yield takeEvery(authorize, authUserSaga);
 }
 
-export default mySaga;
+export default auth;

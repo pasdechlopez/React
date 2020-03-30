@@ -33,18 +33,19 @@ import { call } from 'redux-saga/effects';
 // };
 
 //----------
-// export const fetchUser = ({ username }) =>
-//   fetch(`https://api.github.com/users/${username}`, {
-//     method: 'GET',
-//     headers: {
-//       authorization: 'token  744c55faaeea38f27efc5129716f7fff0d393009 '
-//     }
-//   });
-export const fetchUser = ({ token }) =>
+export const findUser = ({ username }) =>
+  fetch(`https://api.github.com/users/${username}`, {
+    method: 'GET',
+    headers: {
+      authorization: 'token  0754e4e5c80570afd77dc680819cdc8135b094c7 '
+    }
+  });
+export const fetchUser = ({ tokenValue }) =>
   fetch('https://api.github.com/user', {
     method: 'GET',
     headers: {
-      authorization: `token ${token} `
+      authorization: `token ${tokenValue}`
+      // authorization: `token 0754e4e5c80570afd77dc680819cdc8135b094c7 `
     }
   });
 
@@ -54,7 +55,7 @@ export const fetchFollowers = ({ username }) =>
     {
       method: 'GET',
       headers: {
-        authorization: 'token  744c55faaeea38f27efc5129716f7fff0d393009 '
+        authorization: 'token  0754e4e5c80570afd77dc680819cdc8135b094c7 '
       }
     }
   );
