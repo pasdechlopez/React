@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import Followers from '../Followers/Followers';
+import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import { handleFollowers } from '../../actions/search';
 import { logout } from '../../actions/auth';
@@ -12,7 +12,7 @@ export class UserPage extends Component {
     console.log(this.props, 'props from userpage');
     console.log('state from userpage', this.state);
 
-    if (user == undefined) {
+    if (user === undefined) {
       return <div className="handle-error">NO USER FOUND</div>;
     }
     if (isAuthorized === false) {
@@ -20,6 +20,7 @@ export class UserPage extends Component {
     }
     return (
       <div className="user-info">
+        <Search />
         <button onClick={this.props.logout}> LOG OUT</button>
         <div className="user-info__main">
           <div className="user-info__text-main">
@@ -78,7 +79,8 @@ export class UserPage extends Component {
 const mapStateToProps = state => {
   return {
     user: state.authReducer.tokenValue,
-    isAuthorized: state.authReducer.isAuthorized
+    isAuthorized: state.authReducer.isAuthorized,
+    token: state.authReducer.token.token
   };
 };
 

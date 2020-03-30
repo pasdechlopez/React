@@ -10,7 +10,8 @@ import {
 function* fetchUserSaga(action) {
   try {
     const fetchUser = yield call(networkRequest, findUser, {
-      username: action.payload
+      username: action.payload,
+      tokenValue: action.payload.tokenValue
     });
     console.log(fetchUser);
 

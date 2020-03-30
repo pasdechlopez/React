@@ -26,7 +26,10 @@ class Api extends React.Component {
     );
   };
 
-  handleChange = () => this.props.submitForm(this.state.searchValue);
+  handleChange = () =>
+    this.props.submitForm(this.state.searchValue, {
+      currentToken: this.state.searchValue
+    });
 
   render() {
     const { user } = this.props;
@@ -36,7 +39,7 @@ class Api extends React.Component {
       <div className="search">
         <input
           type="text"
-          placeholder="Type ur github login"
+          placeholder="Type a user's login"
           name="username"
           onKeyPress={this.handleSubmit}
           onChange={this.changeSearchValue}
@@ -44,9 +47,9 @@ class Api extends React.Component {
           value={this.state.searchValue}
         />
         <button className="login-button" onClick={this.handleChange}>
-          Submit!
+          Search!
         </button>
-        {user && user.name && <UserPage choosenUser={this.state.searchValue} />}
+        {/* {user && user.name && <UserPage choosenUser={this.state.searchValue} />} */}
         {this.props.error && user.name !== '' && (
           <div className="handle-failure">No user found</div>
         )}
@@ -57,10 +60,11 @@ class Api extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    user: state,
     username: state.username,
     error: state.error,
-    choosenUser: state.choosenUser
+    tokenValue: state,
+    token: state.authReducer.token.token
   };
 };
 

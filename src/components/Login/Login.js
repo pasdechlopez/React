@@ -26,7 +26,9 @@ class Login extends React.Component {
   };
 
   handleChange = () => {
-    this.props.authorize(this.state.tokenValue);
+    this.props.authorize(this.state.tokenValue, {
+      token: this.state.tokenValue
+    });
   };
 
   render() {
@@ -39,7 +41,6 @@ class Login extends React.Component {
       return <div>Error: {error.status}</div>;
     }
     console.log(this.props, 'props from login');
-    console.log(this.state, 'state from login');
 
     // console.log(this.props.handleToken('hello'), 'handleToken from login');
 
@@ -57,7 +58,6 @@ class Login extends React.Component {
         <button className="auth-button" onClick={this.handleChange}>
           Submit!
         </button>
-        {/* {user && user.name && <UserPage choosenUser={this.state.searchValue} />} */}
       </div>
     );
   }
@@ -65,9 +65,12 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.authReducer.tokenValue,
+    probe: state,
+
+    user: state.authReducer.user,
     isAuthorized: state.authReducer.isAuthorized,
-    error: state.authReducer.error
+    error: state.authReducer.error,
+    token: state.authReducer.token
     // user: state.authReducer.tokenValue
   };
 };

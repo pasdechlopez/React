@@ -33,11 +33,11 @@ import { call } from 'redux-saga/effects';
 // };
 
 //----------
-export const findUser = ({ username }) =>
+export const findUser = ({ username, tokenValue }) =>
   fetch(`https://api.github.com/users/${username}`, {
     method: 'GET',
     headers: {
-      authorization: 'token  0754e4e5c80570afd77dc680819cdc8135b094c7 '
+      authorization: `token ${tokenValue}`
     }
   });
 export const fetchUser = ({ tokenValue }) =>

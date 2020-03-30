@@ -18,9 +18,9 @@ function* authUserSaga(action) {
     const token = yield call(networkRequest, fetchUser, {
       tokenValue: action.payload
     });
-    console.log(token, 'authUserSaga from auth saga');
+    console.log(token, action.meta, 'authUserSaga from auth saga');
 
-    yield put(handleToken(token));
+    yield put(handleToken(token, action.meta));
   } catch (error) {
     console.error('error from auth saga', error);
     yield put(handleError(error));

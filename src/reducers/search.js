@@ -13,9 +13,11 @@ const searchReducer = handleActions(
       user: action.payload,
       error: ''
     }),
-    [submitForm]: (state, action) => ({
+    [submitForm]: (state, action, meta) => ({
       ...state,
       username: action.payload,
+      token: action.meta,
+
       error: '',
       choosenUser: action.payload.user
     }),
