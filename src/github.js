@@ -49,13 +49,13 @@ export const fetchUser = ({ tokenValue }) =>
     }
   });
 
-export const fetchFollowers = ({ username }) =>
+export const fetchFollowers = ({ username, tokenValue }) =>
   fetch(
     `https://api.github.com/users/${username}/followers?pages=1&per_page=100`,
     {
       method: 'GET',
       headers: {
-        authorization: 'token  0754e4e5c80570afd77dc680819cdc8135b094c7 '
+        authorization: `token ${tokenValue}`
       }
     }
   );

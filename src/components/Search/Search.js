@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import '../App.css';
 import UserPage from '../UserPage/UserPage';
 import { handleSuccess, submitForm } from '../../actions/search';
+import { Route, Redirect, Link } from 'react-router-dom';
 
 class Api extends React.Component {
   state = {
@@ -46,7 +47,7 @@ class Api extends React.Component {
         <button className="login-button" onClick={this.handleChange}>
           Search!
         </button>
-        {user && user.name && <UserPage />}
+        {user && user.name && <Link to="/user/:id" />}
         {this.props.error && user.name !== '' && (
           <div className="handle-failure">No user found</div>
         )}

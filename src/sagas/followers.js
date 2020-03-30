@@ -1,44 +1,27 @@
-// import { takeLatest, call, put } from 'redux-saga/effects';
-// import { getUserFollowers } from 'a';
-
-// function* fetchFollowersSaga(action) {
-//   try {
-//     const response = yield call(getUserFollowers, action.payload);
-//     yield put(fetchFollowersSuccess(response.data));
-//   } catch (error) {
-//     yield put(fetchFollowersFailure(error));
-//   }
-// }
-
-// export function* fetchFollowersWatch() {
-//   yield takeLatest(fetchFollowersRequest, fetchFollowersSaga);
-// }
-
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { networkRequest, fetchFollowers } from '../github';
-import {
-  handleFollowers,
-  handleFailure,
-  handleFollowersPage
-} from '../actions/search';
+import { handleFailure, handleSuccess } from '../actions/search';
+import { handleFollowers } from '../actions/followers';
 
 function* fetchFollowersSaga(action) {
   try {
     const followers = yield call(networkRequest, fetchFollowers, {
-      username: action.payload
+      username: action.payload,
+      tokenValue: action.meta.currentToken
     });
-    console.log(followers);
+    console.log(action, 'action from followersSAGA');
 
-    yield put(handleFollowers(followers));
+    yield put(handleSuccess(followers));
   } catch (error) {
-    console.error('error from saga', error);
+    console.log(action.meta, 'action from followersSAGA');
+
     yield put(handleFailure(error));
   }
 }
 
 function* followers() {
   // yield takeEvery('FETCH_REQUESTED', fetchUser);
-  yield takeEvery(handleFollowersPage, fetchFollowersSaga);
+  yield takeEvery(handleFollowers, fetchFollowersSaga);
 }
 
 export default followers;

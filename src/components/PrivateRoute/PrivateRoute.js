@@ -1,13 +1,23 @@
 import React from 'react';
-// import { AuthHoc } from 'components/AuthorizeProvider';
 import { Route, Redirect } from 'react-router-dom';
-// import { AuthHOC } from 'components/AuthorizeProvider';
+import { connect } from 'react-redux';
 
-export default class PrivateRoute extends React.Component {
+class PrivateRoute extends React.Component {
   render() {
-    const { isAuthorized, ...rest } = this.props;
-    rest.authorizeUser && delete rest.authorizeUser;
-    return isAuthorized ? <Route {...rest} /> : <Redirect to="/login" />;
+    const { component: PureComponent, isAuthorized, ...rest } = this.props;
+    return (
+      <Route
+        isAuthorized={isAuthorized}
+        {...rest}
+        render={props =>
+          isAuthorized ? <PureComponent {...props} /> : <Redirect to="/login" />
+        }
+      />
+    );
   }
 }
-// export  AuthHOC(PrivateRoute);
+const mapStateToProps = state => ({
+  isAuthorized: state.authReducer.isAuthorized
+});
+
+export default connect(mapStateToProps)(PrivateRoute);

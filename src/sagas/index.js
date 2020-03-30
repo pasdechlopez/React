@@ -1,11 +1,11 @@
 import { fork } from 'redux-saga/effects';
-import mySaga from './mySaga';
+import search from './search';
 import auth from './auth';
 import followers from './followers';
 
 export default function*() {
   yield fork(auth);
 
-  yield fork(mySaga);
+  yield fork(search);
   yield fork(followers);
 }

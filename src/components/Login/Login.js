@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import UserPage from '../UserPage/UserPage';
-import { handleUsername, submitForm } from '../../actions/search';
-import { authorize, handleToken, validToken } from '../../actions/auth';
+import { authorize, handleToken } from '../../actions/auth';
 import { setTokenApi } from '../../github';
-import { Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   state = {
@@ -35,7 +34,7 @@ class Login extends React.Component {
     const { isAuthorized, user, error } = this.props;
 
     if (user && user.login) {
-      return <Redirect to="/users/me" />;
+      return <Redirect to={`/users/${user.login}/`} />;
     }
     if (error && error.status) {
       return <div>Error: {error.status}</div>;

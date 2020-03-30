@@ -14,22 +14,14 @@ export class AppRouter extends React.Component {
     return (
       <div className="app">
         <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
+          <Route exact component={Login} path="/" />
           {isAuthorized && (
-            <Route path="/users/me" exact>
-              <UserPage />
-            </Route>
+            <Route path="/users/:id" component={UserPage} exact />
           )}
-          <Route path="/followers" exact>
+          <Route path="/:id/followers" exact>
             <Followers />
           </Route>
-          {!isAuthorized && (
-            <Redirect path="/" exact>
-              <Login />
-            </Redirect>
-          )}
+          {/* {!isAuthorized && <Route path="/" exact />} */}
         </Switch>
       </div>
     );

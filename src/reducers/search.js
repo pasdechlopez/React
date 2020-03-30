@@ -28,7 +28,8 @@ const searchReducer = handleActions(
     user: {},
     error: '',
     token: {},
-    username: ''
+    username: '',
+    currentToken: {}
   }
 );
 

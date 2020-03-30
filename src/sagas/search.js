@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { findUser, networkRequest } from '../github';
 import {
   handleSuccess,
@@ -22,9 +22,8 @@ function* fetchUserSaga(action) {
   }
 }
 
-function* mySaga() {
-  // yield takeEvery('FETCH_REQUESTED', fetchUser);
+function* search() {
   yield takeEvery(submitForm, fetchUserSaga);
 }
 
-export default mySaga;
+export default search;

@@ -2,26 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
-import { handleFollowers } from '../../actions/search';
+import { handleFollowers } from '../../actions/followers';
 import { logout } from '../../actions/auth';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 export class UserPage extends Component {
   render() {
-    const { user, choosenUser, handleFollowers, isAuthorized } = this.props;
+    const {
+      user,
+      choosenUser,
+      handleFollowers,
+      isAuthorized,
+      token
+    } = this.props;
     console.log(this.props, 'props from userpage');
     console.log('state from userpage', this.state);
 
     if (user === undefined) {
       return <div className="handle-error">NO USER FOUND</div>;
     }
-    if (isAuthorized === false) {
-      return <Route to="/" />;
+    if (!isAuthorized) {
+      return <Redirect to="/" />;
     }
     return (
       <div className="user-info">
         <Search />
-        <button onClick={this.props.logout}> LOG OUT</button>
+        <Link to="/">
+          <button onClick={this.props.logout}> LOG OUT</button>
+        </Link>
         <div className="user-info__main">
           <div className="user-info__text-main">
             {' '}
@@ -63,7 +71,14 @@ export class UserPage extends Component {
             <img src={user.avatar_url} className="user-image" width="110px" />
           )}
           <p className="user-info__followers user-info">
-            <Link to="/followers" onClick={() => handleFollowers()}>
+            <Link
+              to={`/${user.login}/followers`}
+              onClick={() =>
+                handleFollowers(user.login, {
+                  currentToken: token
+                })
+              }
+            >
               Followers: {user.followers}
             </Link>
           </p>
