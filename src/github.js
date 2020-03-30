@@ -14,7 +14,7 @@ import { call } from 'redux-saga/effects';
 // export const fetchData = async username => {
 //   let response = await fetch(`https://api.github.com/users/${username}`, {
 //     headers: {
-//       authorization: 'token d7c91bb87573b57f49c38ebfe86adc7ac46cd2c1'
+//       authorization: 'token '
 //     }
 //   });
 //   console.warn(response);
@@ -45,7 +45,7 @@ export const fetchUser = ({ tokenValue }) =>
     method: 'GET',
     headers: {
       authorization: `token ${tokenValue}`
-      // authorization: `token 0754e4e5c80570afd77dc680819cdc8135b094c7 `
+      // authorization: `token  `
     }
   });
 
