@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import getUserFollowers from '../../actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { handleFollowers } from '../../actions/followers';
 export class Followers extends Component {
   render() {
-    // const { followersList } = this.props;
     let followers = [];
     console.log('props from followers', this.state);
-
     console.log('props from followers', this.props);
     // for (let j = 0; j < followersList.length; j++) {
     //   followers.push(followersList[j]);
@@ -44,17 +41,10 @@ export class Followers extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    user: state,
     followers: state.followers,
     followersList: state.followersList
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getUsersFollowers: (e, username) =>
-      dispatch(this.getUserFollowers(e, username))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Followers);
+export default connect(mapStateToProps, handleFollowers)(Followers);

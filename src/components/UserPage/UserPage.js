@@ -78,7 +78,7 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.authReducer.tokenValue,
+    user: state.authReducer.user,
     isAuthorized: state.authReducer.isAuthorized,
     token: state.authReducer.token.token
   };

@@ -4,12 +4,12 @@ import { authorize, logout, handleToken, handleError } from '../actions/auth';
 const authReducer = handleActions(
   {
     [handleToken]: (state, action, meta) => ({
-      ...state,
       user: action.payload,
       token: action.meta,
       isAuthorized: true
     }),
-    [authorize]: (state, action, meta) => ({
+    [authorize]: (state, action) => ({
+      ...state,
       user: action.payload,
       tokenValue: action.meta,
       error: ''

@@ -13,13 +13,12 @@ const searchReducer = handleActions(
       user: action.payload,
       error: ''
     }),
-    [submitForm]: (state, action, meta) => ({
+    [submitForm]: (state, action) => ({
       ...state,
       username: action.payload,
-      token: action.meta,
-
-      error: '',
-      choosenUser: action.payload.user
+      currentToken: action.meta
+      //     error: '',
+      //   choosenUser: action.payload.user
     }),
     [handleFailure]: (state, action) => ({
       ...state,
@@ -32,7 +31,12 @@ const searchReducer = handleActions(
       error: ''
     })
   },
-  { user: {}, error: '', choosenUser: '', username: '', followers: {} }
+  {
+    user: {},
+    error: '',
+    token: {},
+    username: ''
+  }
 );
 
 export default searchReducer;

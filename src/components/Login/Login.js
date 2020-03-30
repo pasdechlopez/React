@@ -65,13 +65,10 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    probe: state,
-
     user: state.authReducer.user,
     isAuthorized: state.authReducer.isAuthorized,
     error: state.authReducer.error,
     token: state.authReducer.token
-    // user: state.authReducer.tokenValue
   };
 };
 

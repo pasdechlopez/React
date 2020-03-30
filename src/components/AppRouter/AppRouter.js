@@ -18,18 +18,18 @@ export class AppRouter extends React.Component {
             <Login />
           </Route>
           {isAuthorized && (
-            <Route to="/users/me" exact>
+            <Route path="/users/me" exact>
               <UserPage />
             </Route>
           )}
+          <Route path="/followers" exact>
+            <Followers />
+          </Route>
           {!isAuthorized && (
-            <Redirect to="/" exact>
+            <Redirect path="/" exact>
               <Login />
             </Redirect>
           )}
-          <Route exact path="/followers">
-            <Followers />
-          </Route>
         </Switch>
       </div>
     );

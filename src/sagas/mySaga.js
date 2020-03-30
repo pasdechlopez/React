@@ -11,13 +11,13 @@ function* fetchUserSaga(action) {
   try {
     const fetchUser = yield call(networkRequest, findUser, {
       username: action.payload,
-      tokenValue: action.payload.tokenValue
+      tokenValue: action.meta.currentToken
     });
     console.log(fetchUser);
 
     yield put(handleSuccess(fetchUser));
   } catch (error) {
-    console.error('error from saga0', error);
+    console.error('error from mysaga', action);
     yield put(handleFailure(error));
   }
 }
