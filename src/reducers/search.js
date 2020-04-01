@@ -11,12 +11,14 @@ const searchReducer = handleActions(
     [handleUser]: (state, action) => ({
       ...state,
       foundUser: action.payload,
-      error: ''
+      error: '',
+      isFetching: false
     }),
     [submitForm]: (state, action) => ({
       ...state,
       username: action.payload,
-      currentToken: action.meta
+      currentToken: action.meta,
+      isFetching: true
     }),
     [handleFailure]: (state, action) => ({
       ...state,
@@ -30,7 +32,8 @@ const searchReducer = handleActions(
     error: '',
     token: {},
     username: '',
-    currentToken: {}
+    currentToken: {},
+    isFetching: false
   }
 );
 
