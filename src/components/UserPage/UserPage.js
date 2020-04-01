@@ -8,13 +8,6 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { Followers } from '../Followers/Followers';
 
 export class UserPage extends Component {
-  // componentDidMount() {
-  //   const { authorize } = this.props;
-  //   authorize(localStorage.getItem('currentToken'), {
-  //     token: localStorage.getItem('currentToken')
-  //   });
-  // }
-
   render() {
     const {
       user,
@@ -25,6 +18,10 @@ export class UserPage extends Component {
       foundUser,
       history
     } = this.props;
+    const logOut = () => {
+      logout();
+      localStorage.removeItem('currentToken');
+    };
     console.log(this.props, 'props from userpage');
     console.log('state from userpage', this.state);
     const pushURL = () => {
@@ -34,18 +31,12 @@ export class UserPage extends Component {
     if (user === undefined) {
       return <div className="handle-error">NO USER FOUND</div>;
     }
-    if (!isAuthorized) {
-      return <Redirect push to="/" />;
-    }
-    if (foundUser) {
-      return <Redirect push to={`/users/${foundUser.login}`} />;
-    }
 
     return (
       <div className="user-info">
         <Search />
         <Link to="/">
-          <button className="button" onClick={logout}>
+          <button className="button" onClick={logOut}>
             {' '}
             LOG OUT
           </button>

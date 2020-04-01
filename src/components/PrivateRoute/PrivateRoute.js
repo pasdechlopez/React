@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 class PrivateRoute extends React.Component {
   render() {
-    const { component: PureComponent, ...rest } = this.props;
-    const isAuthorized = localStorage.getItem('currentToken');
+    const { component: PureComponent, isAuthorized, ...rest } = this.props;
     return (
       <Route
         isAuthorized={isAuthorized}

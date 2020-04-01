@@ -5,20 +5,16 @@ import { Route, Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   componentDidMount() {
-    const currentToken = currentToken
-      ? localStorage.getItem('currentToken')
-      : null;
-    const isAuthorized = currentToken !== null;
-    this.setState({ currentToken, isAuthorized });
-    isAuthorized
-      ? this.props.authorize(localStorage.getItem('currentToken'), {
-          token: localStorage.getItem('currentToken')
-        })
-      : '';
+    const { isAuthorized } = this.props;
+    const currentToken = localStorage.getItem('currentToken');
+    if (!isAuthorized && currentToken !== null) {
+      this.props.authorize(currentToken, {
+        token: currentToken
+      });
+    }
   }
   state = {
-    currentToken: '',
-    isAuthorized: false
+    currentToken: ''
   };
 
   changetokenValue = event => {
@@ -49,7 +45,7 @@ class Login extends React.Component {
     const { isAuthorized, user, error } = this.props;
     console.log(this.state.isAuthorized, 'LOGIN ');
 
-    if (this.state.isAuthorized || isAuthorized) {
+    if (isAuthorized) {
       return <Redirect push to={'/users/me/'} />;
     }
     if (error && error.status) {

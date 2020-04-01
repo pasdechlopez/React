@@ -60,7 +60,7 @@ class Search extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    foundUser: state,
+    foundUser: state.searchReducer.foundUser,
     error: state.error,
     token: state.authReducer.token.token
   };

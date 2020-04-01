@@ -4,17 +4,13 @@ import Login from '../Login/Login';
 import Search from '../Search/Search';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect, Link } from 'react-router-dom';
 import './AppRouter.css';
 import Follower from '../Follower/Follower';
 import { connect } from 'react-redux';
+import { logout, authorize } from '../../actions/auth';
 
 export class AppRouter extends React.Component {
-  componentDidMount() {
-    const currentToken = localStorage.getItem('currentToken');
-    const currentUser = currentToken ? localStorage.getItem('user') : '';
-    this.setState({ currentToken, currentUser });
-  }
   logout = () => {
     localStorage.removeItem('currentToken');
     localStorage.removeItem('currentUser');
@@ -25,6 +21,14 @@ export class AppRouter extends React.Component {
 
     return (
       <div className="app">
+        {/* {isAuthorized && (
+          <Link to="/">
+            <button className="button" onClick={this.logout}>
+              {' '}
+              LOG OUT
+            </button>
+          </Link>
+        )} */}
         <Switch>
           <PrivateRoute
             path="/users/me"
@@ -54,5 +58,5 @@ const mapStateToProps = state => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, null)(withRouter(AppRouter))
+  connect(mapStateToProps, { logout })(withRouter(AppRouter))
 );
