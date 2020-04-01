@@ -4,4 +4,7 @@ export const { handleFollowers } = createActions({
   HANDLE_FOLLOWERS: [payload => payload, (payload, meta) => meta]
 });
 
-export const { handleSuccess } = createActions('HANDLE_SUCCESS');
+export const { handleSuccess, handleFailure } = createActions(
+  'HANDLE_SUCCESS',
+  'HANDLE_FAILURE'
+);

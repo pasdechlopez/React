@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import * as reactStore from '../../actions/actions';
-// import '../App.css';
-import UserPage from '../UserPage/UserPage';
-import { handleSuccess, submitForm } from '../../actions/search';
-import { Route, Redirect, Link } from 'react-router-dom';
+import { handleUser, submitForm } from '../../actions/search';
+import { handleFollowers } from '../../actions/followers';
+import { Route, Redirect, Link, withRouter } from 'react-router-dom';
 
-class Api extends React.Component {
+class Search extends React.Component {
   state = {
     searchValue: ''
   };
@@ -25,14 +23,17 @@ class Api extends React.Component {
     );
   };
 
-  handleChange = () =>
+  handleChange = () => {
     this.props.submitForm(this.state.searchValue, {
-      currentToken: this.props.token
+      currentToken: localStorage.getItem('currentToken')
     });
+    this.props.handleFollowers();
+  };
 
   render() {
-    const { user } = this.props;
+    const { foundUser, error } = this.props;
     console.log(this.props, 'props from search');
+
     return (
       <div className="search">
         <input
@@ -44,11 +45,12 @@ class Api extends React.Component {
           id="username"
           value={this.state.searchValue}
         />
-        <button className="login-button" onClick={this.handleChange}>
+
+        <button className="login-button button" onClick={this.handleChange}>
           Search!
         </button>
-        {user && user.name && <Link to="/user/:id" />}
-        {this.props.error && user.name !== '' && (
+
+        {error && foundUser.name !== '' && (
           <div className="handle-failure">No user found</div>
         )}
       </div>
@@ -58,19 +60,14 @@ class Api extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.searchReducer.user,
+    foundUser: state,
     error: state.error,
     token: state.authReducer.token.token
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handleSuccess: e => dispatch(handleSuccess(e)),
-//     // submitForm
-//     // submitForm
-//     submitForm: payload => dispatch(submitForm(payload))
-//   };
-// };
-
-export default connect(mapStateToProps, { handleSuccess, submitForm })(Api);
+export default connect(mapStateToProps, {
+  handleUser,
+  submitForm,
+  handleFollowers
+})(withRouter(Search));

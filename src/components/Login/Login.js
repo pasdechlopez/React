@@ -1,47 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import UserPage from '../UserPage/UserPage';
 import { authorize, handleToken } from '../../actions/auth';
-import { setTokenApi } from '../../github';
 import { Route, Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
+  componentDidMount() {
+    const currentToken = currentToken
+      ? localStorage.getItem('currentToken')
+      : null;
+    const isAuthorized = currentToken !== null;
+    this.setState({ currentToken, isAuthorized });
+    isAuthorized
+      ? this.props.authorize(localStorage.getItem('currentToken'), {
+          token: localStorage.getItem('currentToken')
+        })
+      : '';
+  }
   state = {
-    tokenValue: ''
+    currentToken: '',
+    isAuthorized: false
   };
 
   changetokenValue = event => {
     this.setState({
-      tokenValue: event.target.value
+      currentToken: event.target.value
     });
   };
 
   handleSubmit = event => {
     return (
       event.key === 'Enter' &&
-      this.state.tokenValue !== '' &&
+      this.state.currentToken !== '' &&
       this.handleChange()
     );
   };
 
   handleChange = () => {
-    this.props.authorize(this.state.tokenValue, {
-      token: this.state.tokenValue
+    const { currentToken } = this.state;
+    const { user } = this.props;
+    localStorage.setItem('currentToken', currentToken);
+    localStorage.setItem('user', user ? user.login : '');
+    this.props.authorize(this.state.currentToken, {
+      token: this.state.currentToken
     });
   };
 
   render() {
     const { isAuthorized, user, error } = this.props;
+    console.log(this.state.isAuthorized, 'LOGIN ');
 
-    if (user && user.login) {
-      return <Redirect to={`/users/${user.login}/`} />;
+    if (this.state.isAuthorized || isAuthorized) {
+      return <Redirect push to={'/users/me/'} />;
     }
     if (error && error.status) {
       return <div>Error: {error.status}</div>;
     }
     console.log(this.props, 'props from login');
-
-    // console.log(this.props.handleToken('hello'), 'handleToken from login');
 
     return (
       <div className="login">
@@ -51,10 +65,10 @@ class Login extends React.Component {
           name="token auth"
           onKeyPress={this.handleSubmit}
           onChange={this.changetokenValue}
-          value={this.state.tokenValue}
+          value={this.state.currentToken}
           id="username"
         />
-        <button className="auth-button" onClick={this.handleChange}>
+        <button className="auth-button button" onClick={this.handleChange}>
           Submit!
         </button>
       </div>

@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { findUser, networkRequest } from '../github';
 import {
-  handleSuccess,
+  handleUser,
   submitForm,
   handleFollowers,
   handleFailure
@@ -15,9 +15,9 @@ function* fetchUserSaga(action) {
     });
     console.log(fetchUser);
 
-    yield put(handleSuccess(fetchUser));
+    yield put(handleUser(fetchUser));
   } catch (error) {
-    console.error('error from mysaga', action.meta);
+    console.error('error from mysaga', action);
     yield put(handleFailure(error));
   }
 }

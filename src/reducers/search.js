@@ -1,16 +1,16 @@
 import { handleActions } from 'redux-actions';
 import {
   submitForm,
-  handleSuccess,
+  handleUser,
   handleFollowers,
   handleFailure
 } from '../actions/search';
 
 const searchReducer = handleActions(
   {
-    [handleSuccess]: (state, action) => ({
+    [handleUser]: (state, action) => ({
       ...state,
-      user: action.payload,
+      foundUser: action.payload,
       error: ''
     }),
     [submitForm]: (state, action) => ({
@@ -20,8 +20,9 @@ const searchReducer = handleActions(
     }),
     [handleFailure]: (state, action) => ({
       ...state,
-      username: '',
-      error: action.payload
+      username: 'Not found',
+      error: action.payload,
+      foundUser: 'Not found'
     })
   },
   {

@@ -1,11 +1,16 @@
 .user-info {
   margin: 10px;
- 
 }
 .user-info__main {
   display: flex;
   justify-content: space-around;
   align-content: center;
+}
+.button {
+  cursor: pointer;
+}
+.button:hover {
+  background: orange;
 }
 .user_info__addition {
   display: flex;
@@ -19,7 +24,6 @@
 .user-info__text {
   display: flex;
   flex-direction: column;
-
 }
 .user-info__text-header {
   font-style: italic;
@@ -37,7 +41,6 @@
   width: 500px;
   border-radius: 4px;
   box-shadow: 3px 3px gainsboro;
-
 }
 .get-data {
   padding: 10px;
@@ -45,7 +48,6 @@
 .user-image {
   border-radius: 4px;
   box-shadow: 2px 2px;
-
 }
 
 .login-button {
@@ -58,7 +60,9 @@
 .user-info {
   font-size: 12px;
 }
-link:visited { text-decoration: none; }
+link:visited {
+  text-decoration: none;
+}
 
 .follower-image {
   border-radius: 4px;
@@ -68,7 +72,7 @@ link:visited { text-decoration: none; }
 .followers {
   display: flex;
   flex-wrap: wrap;
-justify-content: space-between;
+  justify-content: space-between;
 }
 
 .follower {

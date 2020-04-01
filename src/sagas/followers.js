@@ -1,7 +1,10 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { networkRequest, fetchFollowers } from '../github';
-import { handleFailure, handleSuccess } from '../actions/search';
-import { handleFollowers } from '../actions/followers';
+import {
+  handleFollowers,
+  handleSuccess,
+  handleFailure
+} from '../actions/followers';
 
 function* fetchFollowersSaga(action) {
   try {

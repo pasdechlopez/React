@@ -1,38 +1,5 @@
 import { call } from 'redux-saga/effects';
-// import axios from 'axios';
 
-// const instance = axios.create({
-//   baseURL: 'https://api.github.com/'
-// });
-
-// export const setTokenApi = access_token =>
-//   (instance.defaults.params = { access_token });
-
-// export const clearTokenApi = () =>
-//   (instance.defaults.params = { access_token: undefined });
-
-// export const fetchData = async username => {
-//   let response = await fetch(`https://api.github.com/users/${username}`, {
-//     headers: {
-//       authorization: 'token '
-//     }
-//   });
-//   console.warn(response);
-//   let data = await response.json();
-//   return data;
-// };
-
-// export const getUserFollowers = (e, login) => {
-//   e.persist();
-//   return async () => {
-//     const response = await fetch(
-//       `users/${login}/followers?pages=1&per_page=100`
-//     );
-//     const data = await response.json();
-//   };
-// };
-
-//----------
 export const findUser = ({ username, tokenValue }) =>
   fetch(`https://api.github.com/users/${username}`, {
     method: 'GET',

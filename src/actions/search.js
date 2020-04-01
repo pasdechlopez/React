@@ -2,15 +2,14 @@ import { createActions } from 'redux-actions';
 
 export const {
   submitForm,
-
-  handleSuccess,
+  handleUser,
   handleFollowers,
   searchSuccess,
   handleFailure,
   handleFollowersPage
 } = createActions(
   { SUBMIT_FORM: [payload => payload, (payload, meta) => meta] },
-  'HANDLE_SUCCESS',
+  'HANDLE_USER',
   'HANDLE_FOLLOWERS',
   'SEARCH_SUCCESS',
   'HANDLE_FAILURE',

@@ -1,5 +1,9 @@
 import { handleActions } from 'redux-actions';
-import { handleFollowers, handleSuccess } from '../actions/followers';
+import {
+  handleFollowers,
+  handleSuccess,
+  handleFailure
+} from '../actions/followers';
 
 const followersReducer = handleActions(
   {
@@ -11,6 +15,10 @@ const followersReducer = handleActions(
     [handleSuccess]: (state, action) => ({
       ...state,
       followers: action.payload
+    }),
+    [handleFailure]: (state, action) => ({
+      ...state,
+      followers: []
     })
   },
   {
