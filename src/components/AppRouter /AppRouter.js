@@ -36,7 +36,7 @@ export class AppRouter extends React.Component {
             path="/users/:id"
             component={Follower}
             isAuthorized={isAuthorized}
-            choosenUser={this.props.foundUser}
+            // choosenUser={this.props.foundUser}
             exact
           />
           <Route path="/" component={Login} />
@@ -47,9 +47,12 @@ export class AppRouter extends React.Component {
 }
 const mapStateToProps = state => {
   return {
+    all: state,
     isAuthorized: state.authReducer.isAuthorized,
     choosenUser: state.searchReducer.foundUser
   };
 };
 
-export default withRouter(connect(mapStateToProps, null)(AppRouter));
+export default withRouter(
+  connect(mapStateToProps, null)(withRouter(AppRouter))
+);

@@ -21,11 +21,7 @@ export class Followers extends Component {
         {followers.map(function(follower, index) {
           return (
             <div key={index} className="follower">
-              <Link
-                className="follower"
-                to={`/users/${follower.login}`}
-                onClick={() => this.handleChange(`${follower.login}`)}
-              >
+              <Link className="follower" to={`/users/${follower.login}`}>
                 {follower.login}
 
                 {follower.avatar_url && (

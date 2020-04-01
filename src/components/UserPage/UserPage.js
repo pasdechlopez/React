@@ -9,22 +9,16 @@ import { Followers } from '../Followers/Followers';
 
 export class UserPage extends Component {
   componentDidMount() {
-    const { handleFollowers, user, token } = this.props;
-    this.props.authorize(localStorage.getItem('currentToken'), {
+    const { authorize } = this.props;
+    authorize(localStorage.getItem('currentToken'), {
       token: localStorage.getItem('currentToken')
     });
   }
-  fetchFollowers = () => {
-    handleFollowers(this.props.user.login, {
-      currentToken: localStorage.getItem('currentToken')
-    });
-  };
+
   render() {
     const {
       user,
-      choosenUser,
       isAuthorized,
-      token,
       followers,
       handleFollowers,
       logout,
@@ -120,6 +114,7 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
+    all: state,
     user: state.authReducer.user,
     isAuthorized: state.authReducer.isAuthorized,
     token: state.authReducer.token.token,
