@@ -1,11 +1,13 @@
 import { createActions } from 'redux-actions';
 
-export const { authorize, logout, handleError } = createActions(
-  { AUTHORIZE: [payload => payload, (payload, meta) => meta] },
-  'LOGOUT',
-  'HANDLE_ERROR'
+export const {
+  authorize,
+  authorizeSuccess,
+  authorizeFailure,
+  logout
+} = createActions(
+  { AUTHORIZE_SUCCESS: [payload => payload, (payload, meta = {}) => meta] },
+  'AUTHORIZE',
+  'AUTHORIZE_FAILURE',
+  'LOGOUT'
 );
-
-export const { handleToken } = createActions({
-  HANDLE_TOKEN: [payload => payload, (payload, meta) => meta]
-});

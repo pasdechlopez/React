@@ -1,13 +1,11 @@
 export function getTokenFromLocalStorage() {
-  return localStorage.getItem('access_token');
+  return localStorage.getItem('currentToken');
 }
 
 export function setTokenToLocalStorage(token) {
-  localStorage.setItem('access_token', token);
+  localStorage.setItem('currentToken', token);
 }
 
 export function removeTokenFromLocalStorage() {
-  localStorage.removeItem('access_token');
+  localStorage.removeItem('currentToken');
 }
-
-export const getIsAuthorized = state => state.auth.isAuthorized;

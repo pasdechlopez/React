@@ -1,34 +1,40 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, take, takeLatest } from 'redux-saga/effects';
 import { fetchUser, networkRequest } from '../github';
+
 import {
-  handleSuccess,
-  submitForm,
-  handleFollowers,
-  handleFailure
-} from '../actions/search';
-import {
-  handleToken,
   authorize,
-  validToken,
-  handleError
+  authorizeSuccess,
+  authorizeFailure,
+  logout
 } from '../actions/auth';
 
-function* authUserSaga(action) {
-  try {
-    const user = yield call(networkRequest, fetchUser, {
-      tokenValue: action.payload
-    });
-    console.log(user, action.meta, 'authUserSaga from auth saga');
+import {
+  setTokenToLocalStorage,
+  removeTokenFromLocalStorage,
+  getTokenFromLocalStorage
+} from '../localStorage';
 
-    yield put(handleToken(user, action.meta));
+function* authUserSaga({ payload: payloadToken }) {
+  try {
+    let token = payloadToken || getTokenFromLocalStorage();
+    if (!token) {
+      throw 'unauthorized';
+    }
+
+    const user = yield call(networkRequest, fetchUser, { token });
+    setTokenToLocalStorage(token);
+    yield put(authorizeSuccess(user, { token }));
+
+    yield take(logout);
+    removeTokenFromLocalStorage();
   } catch (error) {
     console.error('error from auth saga', error);
-    yield put(handleError(error));
+    yield put(authorizeFailure(error));
   }
 }
 
 function* auth() {
-  yield takeEvery(authorize, authUserSaga);
+  yield takeLatest(authorize, authUserSaga);
 }
 
 export default auth;

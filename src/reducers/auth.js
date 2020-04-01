@@ -1,35 +1,45 @@
 import { handleActions } from 'redux-actions';
-import { authorize, logout, handleToken, handleError } from '../actions/auth';
+import {
+  authorize,
+  authorizeSuccess,
+  authorizeFailure,
+  logout
+} from '../actions/auth';
 
 const authReducer = handleActions(
   {
-    [handleToken]: (state, action, meta) => ({
-      user: action.payload,
-      token: action.meta,
-      isAuthorized: true
-    }),
     [authorize]: (state, action) => ({
       ...state,
-      user: action.payload,
-      tokenValue: action.meta,
-      error: ''
+      authorizing: true
     }),
+
+    [authorizeSuccess]: (state, { payload: user, meta: token }) => ({
+      ...state,
+      authorizing: false,
+      isAuthorized: true,
+      token,
+      user
+    }),
+
+    [authorizeFailure]: (state, { payload: error }) => ({
+      ...state,
+      authorizing: false,
+      isAuthorized: false,
+      user: null,
+      error
+    }),
+
     [logout]: state => ({
       ...state,
-      isAuthorized: false
-    }),
-    [handleError]: (state, action) => ({
-      ...state,
-      error: action.payload,
-      tokenValue: {},
       isAuthorized: false
     })
   },
   {
-    tokenValue: {},
-    status: false,
+    authorizing: false,
     isAuthorized: false,
-    token: {}
+    token: false,
+    user: null,
+    error: null
   }
 );
 

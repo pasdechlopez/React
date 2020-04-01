@@ -1,53 +1,60 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authorize, handleToken } from '../../actions/auth';
-import { Route, Redirect } from 'react-router-dom';
+import { authorize } from '../../actions/auth';
+import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
-  componentDidMount() {
-    const { isAuthorized } = this.props;
-    const currentToken = localStorage.getItem('currentToken');
-    if (!isAuthorized && currentToken !== null) {
-      this.props.authorize(currentToken, {
-        token: currentToken
-      });
-    }
-  }
   state = {
     currentToken: ''
   };
 
-  changetokenValue = event => {
+  componentDidMount() {
+    const { authorize } = this.props;
+    authorize();
+  }
+
+  handleTokenChange = event => {
     this.setState({
       currentToken: event.target.value
     });
   };
 
-  handleSubmit = event => {
-    return (
-      event.key === 'Enter' &&
-      this.state.currentToken !== '' &&
-      this.handleChange()
-    );
+  handleHotkeySubmit = event => {
+    const {
+      state: { currentToken },
+      handleAuth
+    } = this;
+
+    if (event.key === 'Enter' && currentToken !== '') {
+      handleAuth();
+    }
   };
 
-  handleChange = () => {
-    const { currentToken } = this.state;
-    const { user } = this.props;
-    localStorage.setItem('currentToken', currentToken);
-    localStorage.setItem('user', user ? user.login : '');
-    this.props.authorize(this.state.currentToken, {
-      token: this.state.currentToken
-    });
+  handleAuth = () => {
+    const {
+      state: { currentToken },
+      props: { authorize, history }
+    } = this;
+
+    authorize(currentToken);
+    history.push('/user/me');
   };
 
   render() {
-    const { isAuthorized, user, error } = this.props;
+    const {
+      state: { currentToken },
+      props: { isAuthorized, error },
+      handleAuth,
+      handleTokenChange,
+      handleHotkeySubmit
+    } = this;
+
     console.log(this.state.isAuthorized, 'LOGIN ');
 
-    if (isAuthorized) {
-      return <Redirect push to={'/users/me/'} />;
-    }
+    // if (isAuthorized) {
+    //   return <Redirect push to={'/users/me/'} />;
+    // }
+
     if (error && error.status) {
       return <div>Error: {error.status}</div>;
     }
@@ -59,12 +66,12 @@ class Login extends React.Component {
           type="text"
           placeholder="Type ur github token"
           name="token auth"
-          onKeyPress={this.handleSubmit}
-          onChange={this.changetokenValue}
-          value={this.state.currentToken}
+          value={currentToken}
+          onKeyPress={handleHotkeySubmit}
+          onChange={handleTokenChange}
           id="username"
         />
-        <button className="auth-button button" onClick={this.handleChange}>
+        <button className="auth-button button" onClick={handleAuth}>
           Submit!
         </button>
       </div>
@@ -81,4 +88,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { authorize, handleToken })(Login);
+export default connect(mapStateToProps, { authorize })(withRouter(Login));

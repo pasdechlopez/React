@@ -7,12 +7,12 @@ export const findUser = ({ username, tokenValue }) =>
       authorization: `token ${tokenValue}`
     }
   });
-export const fetchUser = ({ tokenValue }) =>
+
+export const fetchUser = ({ token }) =>
   fetch('https://api.github.com/user', {
     method: 'GET',
     headers: {
-      authorization: `token ${tokenValue}`
-      // authorization: `token  `
+      authorization: `token ${token}`
     }
   });
 

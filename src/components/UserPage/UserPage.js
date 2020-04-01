@@ -8,6 +8,11 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { Followers } from '../Followers/Followers';
 
 export class UserPage extends Component {
+  componentDidMount() {
+    // const {props: {match: {params: {id}}}} = this;
+    // fetchUser(id) -> saga: if id === 'me' fetchMe else fetchById(id)
+  }
+
   render() {
     const {
       user,
@@ -16,7 +21,8 @@ export class UserPage extends Component {
       handleFollowers,
       logout,
       foundUser,
-      history
+      history,
+      params: { id }
     } = this.props;
     const logOut = () => {
       logout();
@@ -28,9 +34,10 @@ export class UserPage extends Component {
       history.replace(`/users/${foundUser.login}`);
     };
 
-    if (user === undefined) {
-      return <div className="handle-error">NO USER FOUND</div>;
-    }
+    if (id)
+      if (!user) {
+        return <div className="handle-error">NO USER FOUND</div>;
+      }
 
     return (
       <div className="user-info">
