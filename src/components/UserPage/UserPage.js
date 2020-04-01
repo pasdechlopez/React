@@ -8,12 +8,12 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { Followers } from '../Followers/Followers';
 
 export class UserPage extends Component {
-  componentDidMount() {
-    const { authorize } = this.props;
-    authorize(localStorage.getItem('currentToken'), {
-      token: localStorage.getItem('currentToken')
-    });
-  }
+  // componentDidMount() {
+  //   const { authorize } = this.props;
+  //   authorize(localStorage.getItem('currentToken'), {
+  //     token: localStorage.getItem('currentToken')
+  //   });
+  // }
 
   render() {
     const {
@@ -33,9 +33,11 @@ export class UserPage extends Component {
 
     if (user === undefined) {
       return <div className="handle-error">NO USER FOUND</div>;
-    } else if (!isAuthorized) {
+    }
+    if (!isAuthorized) {
       return <Redirect push to="/" />;
-    } else if (foundUser) {
+    }
+    if (foundUser) {
       return <Redirect push to={`/users/${foundUser.login}`} />;
     }
 

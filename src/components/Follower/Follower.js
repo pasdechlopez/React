@@ -14,10 +14,14 @@ export class UserPage extends Component {
     this.props.authorize(localStorage.getItem('currentToken'), {
       token: localStorage.getItem('currentToken')
     });
-    this.props.submitForm(location.pathname.split('/')[2], {
-      currentToken: localStorage.getItem('currentToken')
-    });
-    this.props.handleFollowers();
+    location.pathname.split('/')[2] === undefined
+      ? ''
+      : () => {
+          this.props.submitForm(location.pathname.split('/')[2], {
+            currentToken: localStorage.getItem('currentToken')
+          });
+          this.props.handleFollowers();
+        };
   }
   fetchFollowers = () => {
     handleFollowers(this.props.user.login, {
@@ -47,6 +51,9 @@ export class UserPage extends Component {
 
     if (!isAuthorized) {
       return <Redirect push to="/" />;
+    }
+    if (choosenUser === undefined) {
+      return <Redirect push to="users/me" />;
     }
     if (typeof choosenUser == 'string') {
       return (
