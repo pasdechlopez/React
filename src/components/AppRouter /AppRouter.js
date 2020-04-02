@@ -10,18 +10,22 @@ import UserPage from '../UserPage/UserPage';
 
 export class AppRouter extends React.Component {
   render() {
-    const { isAuthorized } = this.props;
-
+    const {
+      isAuthorized,
+      location: { pathname }
+    } = this.props;
+    console.log(this.props, 'approuter');
     return (
       <div className="app">
         <Switch>
-          <Route exact path="/" component={Login} />
-          {/* <PrivateRoute
+          <PrivateRoute
             component={UserPage}
             isAuthorized={isAuthorized}
             path="/users/:id"
-          /> */}
-          <Route component={UserPage} path="/users/:id" />
+          />
+          <Route exact path="/" component={Login} />
+
+          {/* <Route component={UserPage} path="/users/:id" /> */}
         </Switch>
       </div>
     );
@@ -33,4 +37,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AppRouter);
+export default connect(mapStateToProps)(withRouter(AppRouter));

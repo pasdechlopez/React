@@ -100,55 +100,49 @@ export class UserPage extends Component {
             {
               <div className="user-info__text-wrapper">
                 <div className="user-info__text-header">Login: </div>{' '}
-                {user.login}
+                {foundUser.login}
               </div>
             }
             {
               <div className="user-info__text-wrapper">
                 {' '}
                 <div className="user-info__text-header">Company: </div>{' '}
-                {user.company}
+                {foundUser.company}
               </div>
             }
             {
               <div className="user-info__text-wrapper">
                 <div className="user-info__text-header">Blog: </div>{' '}
-                <a href={`${user.blog}`}>{user.blog}</a>
+                <a href={`${foundUser.blog}`}>{foundUser.blog}</a>
               </div>
             }
             {
               <div className="user-info__text-wrapper">
                 {' '}
                 <div className="user-info__text-header">Location: </div>{' '}
-                {user.location}
+                {foundUser.location}
               </div>
             }
           </div>
         </div>
         <div className="user_info__addition">
-          {user.avatar_url && (
-            <img src={user.avatar_url} className="user-image" width="110px" />
+          {foundUser.avatar_url && (
+            <img
+              src={foundUser.avatar_url}
+              className="user-image"
+              width="110px"
+            />
           )}
           <p className="user-info__followers user-info">
-            Followers: {user.followers}
+            Followers: {foundUser.followers}
           </p>
           <p className="user-info__following user-info">
-            Following: {user.following}
+            Following: {foundUser.following}
           </p>
         </div>
         <br />
 
-        {isFetched && (
-          <Followers
-          // id={foundUser.login}
-          // followers={followers}
-          // isFetched={isFetched}
-          // handleFollowers={handleFollowers}
-          // followers={followers}
-          />
-        )}
-
-        {/* <Followers user={user} /> */}
+        {isFetched && <Followers />}
       </div>
     );
   }
@@ -156,14 +150,9 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    all: state,
-    // params: state.match.params,
-    user: state.searchReducer.foundUser,
     isAuthorized: state.authReducer.isAuthorized,
-    token: state.authReducer.token.token,
     followers: state.followersReducer.followers,
     foundUser: state.searchReducer.foundUser,
-    currentId: state.searchReducer.foundUser.login,
     isFetching: state.searchReducer.isFetching,
     isFetched: state.searchReducer.isFetched
   };
