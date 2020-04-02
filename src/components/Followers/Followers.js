@@ -42,7 +42,7 @@ export class Followers extends Component {
     const { followers, isFetched, handleFollowers, id, history } = this.props;
     console.log(this.props, 'props from FOllowers');
     if (!followers) {
-      return <div></div>;
+      return <div>No followers? What a shame</div>;
     }
     return (
       <div className="followers">

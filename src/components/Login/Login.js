@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authorize } from '../../actions/auth';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { getTokenFromLocalStorage } from '../../localStorage';
 class Login extends React.Component {
   state = {
@@ -53,8 +53,7 @@ class Login extends React.Component {
         isAuthorized,
         error,
         history,
-        match: { path },
-        isFetched
+        match: { path }
       },
       handleAuth,
       handleTokenChange,

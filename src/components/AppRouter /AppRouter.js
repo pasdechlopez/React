@@ -19,14 +19,11 @@ export class AppRouter extends React.Component {
       <div className="app">
         <Switch>
           <Route exact path="/" component={Login} />
-
           <PrivateRoute
             component={UserPage}
             isAuthorized={isAuthorized}
             path="/users/:id"
           />
-
-          {/* <Route component={UserPage} path="/users/:id" /> */}
         </Switch>
       </div>
     );

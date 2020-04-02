@@ -24,8 +24,9 @@ export class Search extends React.Component {
   };
 
   handleChange = () => {
-    const { fetchUser } = this.props;
+    const { fetchUser, history } = this.props;
     fetchUser(this.state.searchValue);
+    history.push(`/users/${this.state.searchValue}`);
   };
 
   render() {

@@ -14,7 +14,8 @@ function* fetchUserSaga({ payload: id }) {
     if (id === 'me') {
       const user = yield call(networkRequest, fetchUser, { token });
       yield put(searchSuccess(user));
-    } else {
+    }
+    if (id !== 'me') {
       const foundUser = yield call(networkRequest, findUser, {
         username: id,
         tokenValue: token

@@ -7,7 +7,7 @@ import { handleFollowers, handleFailure } from '../../actions/followers';
 
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import Followers from '../Followers/Followers';
-// import Search from '../Search/Search';
+import Search from '../Search/Search';
 
 export class UserPage extends Component {
   componentDidMount() {
@@ -19,6 +19,7 @@ export class UserPage extends Component {
         }
       }
     } = this;
+    console.log(id, 'id from UP');
     fetchUser(id);
   }
   componentDidUpdate(prevProps) {
@@ -59,13 +60,20 @@ export class UserPage extends Component {
       logout();
       localStorage.removeItem('currentToken');
     };
-    console.log(this.props, 'props from userpage');
+    console.log(foundUser, typeof foundUser, 'props from userpage');
     const pushURL = () => {
       history.replace(`/users/${foundUser.login}`);
     };
 
-    if (!foundUser.login && isFetched) {
-      return <div className="handle-error">NO USER FOUND</div>;
+    if (!foundUser.login) {
+      return (
+        <div className="handle-error">
+          <span>NO USER FOUND</span>
+          <button className="button" onClick={() => history.goBack()}>
+            Back
+          </button>
+        </div>
+      );
     }
     if (isFetching) {
       return <div>Fetching...</div>;
@@ -76,13 +84,15 @@ export class UserPage extends Component {
 
     return (
       <div className="user-info">
-        {/* <Search /> */}
-        <Link to="/">
-          <button className="button" onClick={logOut}>
-            {' '}
-            LOG OUT
-          </button>
-        </Link>
+        <Search />
+        {id == 'me' && (
+          <Link to="/">
+            <button className="button" onClick={logOut}>
+              {' '}
+              LOG OUT
+            </button>
+          </Link>
+        )}
         {id !== 'me' && (
           <button className="button" onClick={() => history.goBack()}>
             {' '}
