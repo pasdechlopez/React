@@ -1,291 +1,67 @@
-describe('Домашняя работа', () => {
+describe('Домашнее задание 3го занятия', function() {
   before(() => {
     cy.visit('/');
   });
 
-  describe('Верстка', () => {
-    describe('Верстка .market', () => {
-      it('Присутствует тег .market', () => {
-        cy.get('.market');
-      });
-      it('Присутствует тег .new-orders__create-button', () => {
-        cy.get('.new-orders__create-button');
-      });
-      it('Присутствует тег button с текстом «Отправить заказ на ферму»', () => {
-        cy.get('button').contains('Отправить заказ на ферму');
+  describe('Шаги формы', () => {
+    it('На странице есть 3 шага формы с классом .step', () => {
+      cy.get('body .step').should($steps => {
+        expect($steps).to.have.length(3);
       });
     });
 
-    describe('Верстка .farm', () => {
-      it('Присутствует тег .farm', () => {
-        cy.get('.farm');
+    it('На странице есть название формы с классом .title', () => {
+      cy.get('body .title').should($title => {
+        expect($title).to.have.length(1);
       });
-
-      it('Присутствует тег button с текстом «Отправить урожай клиенту»', () => {
-        cy.get('button').contains('Отправить урожай клиенту');
-      });
-    });
-
-    describe('Верстка .budget', () => {
-      it('Присутствует тег .budget', () => {
-        cy.get('.budget');
-      });
-
-      it('Присутствует тег p c текстом «Всего получено денег»', () => {
-        cy.get('.budget p').contains('Всего получено денег');
-      });
-      it('Присутствует тег p c текстом «Расходы продавцов»', () => {
-        cy.get('.budget p').contains('Расходы продавцов');
-      });
-      it('Присутствует тег p c текстом «Расходы на ферме»', () => {
-        cy.get('.budget p').contains('Расходы на ферме');
-      });
-      it('Присутствует тег p c текстом «Расходы на доставку»', () => {
-        cy.get('.budget p').contains('Расходы на доставку');
-      });
-      it('Присутствует тег p c текстом «Итого»', () => {
-        cy.get('.budget p').contains('Итого');
-      });
-    });
-    it('Присутствует тег .app', () => {
-      cy.get('.app');
     });
   });
 
-  describe('Сценарии', () => {
+  describe('Персональная информация', () => {
+    it('Кнопка next имеет аттрибут disabled пока форма не заполнена правильно', () => {
+      cy.get('.button-next').should('have.attr', 'disabled');
+    });
+
+    it('Если заполнить форму правильно, кнопку next можно нажать', () => {
+      cy.get('[data-test="personal-form"] [name="firstName"]').type('Al');
+      cy.get('[data-test="personal-form"] [name="lastName"]').type('Pacino');
+      cy.get('[data-test="personal-form"] [name="email"]').type('al@pacino.com');
+      cy.get('.button-next').should('not.have.attr', 'disabled');
+    });
+  });
+
+  describe('Card info', () => {
     beforeEach(() => {
       cy.visit('/');
-    });
-    it('Создание заказа', () => {
-      cy.get('.new-orders__create-button').click();
-      cy.get('.market .order-list .order').should('have.length', 1);
-    });
-    it('Создание 3 заказов', () => {
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy.get('.market .order-list .order').should('have.length', 3);
-    });
-    it('Создание 1 заказа и перевод заказа на ферму', () => {
-      cy.get('.new-orders__create-button').click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy.get('.market .order-list .order').should('have.length', 0);
-      cy.get('.farm .order').should('have.length', 1);
-    });
-    it('Создание 3 заказов и перевод их всех на ферму', () => {
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy.get('.market .order-list .order').should('have.length', 0);
-      cy.get('.farm .order').should('have.length', 3);
+      cy.get('[data-test="personal-form"] [name="firstName"]').type('Al');
+      cy.get('[data-test="personal-form"] [name="lastName"]').type('Pacino');
+      cy.get('[data-test="personal-form"] [name="email"]').type('al@pacino.com');
+      cy.get('.button-next').click({ force: true });
     });
 
-    it('Создание 1 заказа с отправкой клиенту', () => {
-      cy.get('.new-orders__create-button').click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy.get('.farm .order').should('have.length', 0);
+    it('Кнопка next имеет аттрибут disabled пока не записано 16 цифр', () => {
+      cy.get('.button-next').should('have.attr', 'disabled');
     });
-    it('Создание 3 заказов с отправкой клиенту', () => {
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy.get('.farm .order').should('have.length', 0);
+
+    it('Если записать 16 цифр, кнопку next можно нажать', () => {
+      cy.get('[data-test="card-form"] [name="cardNumber"]').type('1234123412341234');
+      cy.get('.button-next').should('not.have.attr', 'disabled');
     });
   });
-  describe('Сценарий создания заказа в магазине', () => {
-    before(() => {
-      cy.visit('/');
-      cy.get('.new-orders__create-button').click();
-    });
-    it('Сумма заказов отражается в строке «Всего получено денег»', () => {
-      cy.get('.market .order-list .order .order-price').then($el => {
-        const orderPrice = parseInt($el.text(), 10);
-        cy.get('.t-profit').then($el => {
-          const profit = parseInt($el.text(), 10);
-          expect(profit).to.eq(orderPrice);
-        });
-      });
-    });
-    it('Сумма заказов отражается в строке «Всего получено денег»', () => {
-      cy.get('.market .order-list .order .order-price').then($el => {
-        const orderPrice = parseInt($el.text(), 10);
-        cy.get('.t-profit').then($el => {
-          const profit = parseInt($el.text(), 10);
-          expect(profit).to.eq(orderPrice);
-        });
-      });
-    });
-    it('Расходы продавцов равны -20', () => {
-      cy.get('.t-sellers').then($el => {
-        const sellers = parseInt($el.text(), 10);
-        expect(sellers).to.eq(-20);
-      });
-    });
-    it('«Итого» равно стоимость заказа минус расходы продавцов', () => {
-      cy.get('.market .order-list .order .order-price').then($el => {
-        const orderPrice = parseInt($el.text(), 10);
-        cy.get('.t-total').then($el => {
-          const total = parseInt($el.text(), 10);
-          expect(total).to.eq(orderPrice - 20);
-        });
-      });
-    });
-  });
-  describe('Сценарий отправки заказа на производство на ферму', () => {
-    before(() => {
-      cy.visit('/');
-      cy.get('.new-orders__create-button').click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-    });
-    it('Сумма заказов отражается в строке «Всего получено денег»', () => {
-      cy.get('.farm .order .order-price').then($el => {
-        const orderPrice = parseInt($el.text(), 10);
-        cy.get('.t-profit').then($el => {
-          const profit = parseInt($el.text(), 10);
-          expect(profit).to.eq(orderPrice);
-        });
-      });
-    });
-    it('Сумма заказов отражается в строке «Всего получено денег»', () => {
-      cy.get('.farm .order .order-price').then($el => {
-        const orderPrice = parseInt($el.text(), 10);
-        cy.get('.t-profit').then($el => {
-          const profit = parseInt($el.text(), 10);
-          expect(profit).to.eq(orderPrice);
-        });
-      });
-    });
-    it('Расходы продавцов равны -20', () => {
-      cy.get('.t-sellers').then($el => {
-        const sellers = parseInt($el.text(), 10);
-        expect(sellers).to.eq(-20);
-      });
-    });
-    it('Расходы на ферме равны -100', () => {
-      cy.get('.t-farm').then($el => {
-        const sellers = parseInt($el.text(), 10);
-        expect(sellers).to.eq(-100);
-      });
-    });
-    it('«Итого» равно стоимость заказа минус расходы продавцов, минус ферма', () => {
-      cy.get('.farm .order .order-price').then($el => {
-        const orderPrice = parseInt($el.text(), 10);
-        cy.get('.t-total').then($el => {
-          const total = parseInt($el.text(), 10);
-          expect(total).to.eq(orderPrice - 20 - 100);
-        });
-      });
-    });
-  });
-  describe('Сценарий отправки заказа клиенту', () => {
-    before(() => {
-      cy.visit('/');
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy.get('.new-orders__create-button').click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить заказ на ферму')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-      cy
-        .get('button')
-        .contains('Отправить урожай клиенту')
-        .click();
-    });
-    it('«Итого» = все деньги минус расходы', () => {
-      cy.get('.t-total').then($el => {
-        const total = parseInt($el.text(), 10);
 
-        cy.get('.t-profit').then($el => {
-          const profit = parseInt($el.text(), 10);
+  describe('Congratulations', () => {
+    beforeEach(() => {
+      cy.visit('/');
+      cy.get('[data-test="personal-form"] [name="firstName"]').type('Al');
+      cy.get('[data-test="personal-form"] [name="lastName"]').type('Pacino');
+      cy.get('[data-test="personal-form"] [name="email"]').type('al@pacino.com');
+      cy.get('.button-next').click({ force: true });
+      cy.get('[data-test="card-form"] [name="cardNumber"]').type('1234123412341234');
+      cy.get('.button-next').click({ force: true });
+    });
 
-          cy.get('.t-sellers').then($el => {
-            const sellers = parseInt($el.text(), 10);
-            cy.get('.t-farm').then($el => {
-              const farm = parseInt($el.text(), 10);
-              cy.get('.t-delivery').then($el => {
-                const delivery = parseInt($el.text(), 10);
-
-                expect(total).to.eq(profit + sellers + farm + delivery);
-              });
-            });
-          });
-        });
-      });
+    it('Присутствует поздравление', () => {
+      cy.get('[data-test="congratulations"]');
     });
   });
 });

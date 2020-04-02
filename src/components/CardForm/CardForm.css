@@ -1,0 +1,6 @@
+.card-form {
+  display: flex;
+  background: rgb(253, 163, 7);
+  flex-direction: column;
+}
+
