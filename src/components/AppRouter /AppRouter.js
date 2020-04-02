@@ -18,12 +18,13 @@ export class AppRouter extends React.Component {
     return (
       <div className="app">
         <Switch>
+          <Route exact path="/" component={Login} />
+
           <PrivateRoute
             component={UserPage}
             isAuthorized={isAuthorized}
             path="/users/:id"
           />
-          <Route exact path="/" component={Login} />
 
           {/* <Route component={UserPage} path="/users/:id" /> */}
         </Switch>
