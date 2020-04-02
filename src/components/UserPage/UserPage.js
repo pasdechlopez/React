@@ -71,8 +71,8 @@ export class UserPage extends Component {
       return (
         <div className="handle-error">
           <span>NO USER FOUND</span>
-          <button className="button" onClick={() => history.goBack()}>
-            Back
+          <button className="button" onClick={() => history.push('/users/s')}>
+            HOME
           </button>
         </div>
       );
