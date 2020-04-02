@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout, authorize } from '../../actions/auth';
@@ -64,7 +64,9 @@ export class UserPage extends Component {
     const pushURL = () => {
       history.replace(`/users/${foundUser.login}`);
     };
-
+    if (isFetching) {
+      return <div>Fetching...</div>;
+    }
     if (!foundUser.login) {
       return (
         <div className="handle-error">
@@ -75,9 +77,7 @@ export class UserPage extends Component {
         </div>
       );
     }
-    if (isFetching) {
-      return <div>Fetching...</div>;
-    }
+
     if (!isAuthorized && path == '/users/me') {
       history.push('/');
     }
@@ -94,10 +94,18 @@ export class UserPage extends Component {
           </Link>
         )}
         {id !== 'me' && (
-          <button className="button" onClick={() => history.goBack()}>
-            {' '}
-            PREV PAGE
-          </button>
+          <Fragment>
+            <button className="button" onClick={() => history.goBack()}>
+              {' '}
+              PREV PAGE
+            </button>
+            <button
+              className="button"
+              onClick={() => history.push('/users/me')}
+            >
+              HOME
+            </button>
+          </Fragment>
         )}
         <div className="user-info__main">
           <div className="user-info__text-main">
