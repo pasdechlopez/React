@@ -70,7 +70,7 @@ export class UserPage extends Component {
     if (!foundUser.login) {
       return (
         <div className="handle-error">
-          <span>NO USER FOUND</span>
+          <span>NO USER FOUND</span>{' '}
           <button className="button" onClick={() => history.push('/users/s')}>
             HOME
           </button>
@@ -98,7 +98,7 @@ export class UserPage extends Component {
             <button className="button" onClick={() => history.goBack()}>
               {' '}
               PREV PAGE
-            </button>
+            </button>{' '}
             <button
               className="button"
               onClick={() => history.push('/users/me')}
@@ -117,27 +117,30 @@ export class UserPage extends Component {
           <div className="user-info__text">
             {
               <div className="user-info__text-wrapper">
-                <div className="user-info__text-header">Login: </div>{' '}
-                {foundUser.login}
+                Login: {foundUser.login}
               </div>
             }
             {
               <div className="user-info__text-wrapper">
                 {' '}
-                <div className="user-info__text-header">Company: </div>{' '}
+                <div className="user-info__text-header span-f-data">
+                  Company:{' '}
+                </div>{' '}
                 {foundUser.company}
               </div>
             }
             {
               <div className="user-info__text-wrapper">
-                <div className="user-info__text-header">Blog: </div>{' '}
+                <div className="user-info__text-header span-f-data">Blog: </div>{' '}
                 <a href={`${foundUser.blog}`}>{foundUser.blog}</a>
               </div>
             }
             {
               <div className="user-info__text-wrapper">
                 {' '}
-                <div className="user-info__text-header">Location: </div>{' '}
+                <div className="user-info__text-header span-f-data">
+                  Location:{' '}
+                </div>{' '}
                 {foundUser.location}
               </div>
             }

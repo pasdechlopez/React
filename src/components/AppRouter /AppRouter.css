@@ -9,6 +9,9 @@
 .button {
   cursor: pointer;
 }
+.span-for-data {
+  margin-right: 4px;
+}
 .button:hover {
   background: orange;
 }
@@ -23,6 +26,8 @@
 }
 .user-info__text {
   display: flex;
+  justify-content: space-evenly;
+
   flex-direction: column;
 }
 .user-info__text-header {
@@ -30,6 +35,7 @@
 }
 .user-info__text-wrapper {
   display: flex;
+  justify-content: space-between;
 }
 .app {
   padding: 10px;
