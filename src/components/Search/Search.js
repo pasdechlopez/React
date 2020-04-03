@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { handleUser, fetchUser } from '../../actions/search';
 import { handleFollowers } from '../../actions/followers';
-import { Route, Redirect, Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 export class Search extends React.Component {
   state = {
