@@ -19,8 +19,10 @@ export class UserPage extends Component {
         }
       }
     } = this;
+
     fetchUser(id);
   }
+
   componentDidUpdate(prevProps) {
     const {
       fetchUser,
@@ -28,11 +30,13 @@ export class UserPage extends Component {
         params: { id: prevId }
       }
     } = prevProps;
+
     const {
       match: {
         params: { id }
       }
     } = this.props;
+
     if (prevId !== id) {
       fetchUser(id);
     }
@@ -40,27 +44,20 @@ export class UserPage extends Component {
 
   render() {
     const {
-      isAuthorized,
       logout,
       foundUser,
       history,
       isFetching,
       isFetched,
       match: {
-        path,
         params: { id }
       }
     } = this.props;
-    const logOut = () => {
-      logout();
-      localStorage.removeItem('currentToken');
-    };
-    const pushURL = () => {
-      history.replace(`/users/${foundUser.login}`);
-    };
+
     if (isFetching) {
       return <div>Fetching...</div>;
     }
+
     if (!foundUser.login) {
       return (
         <div className="handle-error">
@@ -72,22 +69,17 @@ export class UserPage extends Component {
       );
     }
 
-    if (!isAuthorized && path == '/users/me') {
-      history.push('/');
-    }
-
     return (
       <div className="user-info">
         <Search />
-        {id == 'me' && (
+        {id === 'me' ? (
           <Link to="/">
-            <button className="button" onClick={logOut}>
+            <button className="button" onClick={logout}>
               {' '}
               LOG OUT
             </button>
           </Link>
-        )}
-        {id !== 'me' && (
+        ) : (
           <Fragment>
             <button className="button" onClick={() => history.goBack()}>
               {' '}
@@ -101,6 +93,7 @@ export class UserPage extends Component {
             </button>
           </Fragment>
         )}
+
         <div className="user-info__main">
           <div className="user-info__text-main">
             {' '}
@@ -165,7 +158,6 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthorized: state.authReducer.isAuthorized,
     followers: state.followersReducer.followers,
     foundUser: state.searchReducer.foundUser,
     isFetching: state.searchReducer.isFetching,

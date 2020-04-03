@@ -2,22 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authorize } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
-import { getTokenFromLocalStorage } from '../../localStorage';
+
 class Login extends React.Component {
   state = {
     currentToken: ''
   };
-
-  componentDidMount() {
-    const token = getTokenFromLocalStorage();
-    const {
-      props: { authorize, history, isAuthorized }
-    } = this;
-
-    if (!isAuthorized && token !== null) {
-      authorize();
-    }
-  }
 
   handleTokenChange = event => {
     this.setState({
@@ -41,28 +30,30 @@ class Login extends React.Component {
       state: { currentToken },
       props: { authorize, history }
     } = this;
-    console.log(currentToken);
-    authorize(currentToken);
-    history.push('/users/me');
+
+    authorize(currentToken, history);
   };
+
+  componentDidMount() {
+    const {
+      props: { isAuthorized },
+      handleAuth
+    } = this;
+
+    if (!isAuthorized) {
+      handleAuth();
+    }
+  }
 
   render() {
     const {
       state: { currentToken },
-      props: {
-        isAuthorized,
-        error,
-        history,
-        match: { path }
-      },
+      props: { error },
       handleAuth,
       handleTokenChange,
-      handleHotkeySubmit,
-      authorizing
+      handleHotkeySubmit
     } = this;
-    if (isAuthorized && path === '/') {
-      history.push('/users/me');
-    }
+
     if (error && error.status) {
       return <div>Error: {error.status}</div>;
     }
