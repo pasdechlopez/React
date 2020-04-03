@@ -16,28 +16,33 @@ export class Search extends React.Component {
   };
 
   handleSubmit = event => {
-    return (
-      event.key === 'Enter' &&
-      this.state.searchValue !== '' &&
-      this.handleChange()
-    );
+    const {
+      state: { searchValue },
+      handleChange
+    } = this;
+    event.key === 'Enter' && searchValue !== '' && handleChange();
   };
 
   handleChange = () => {
-    const { fetchUser, history } = this.props;
-    fetchUser(this.state.searchValue);
-    history.push(`/users/${this.state.searchValue}`);
+    const {
+      props: { fetchUser, history },
+      state: { searchValue }
+    } = this;
+    if (searchValue !== '') {
+      fetchUser(searchValue);
+      history.push(`/users/${searchValue}`);
+    }
   };
 
   render() {
     const {
-      foundUser,
-      error,
+      props: { foundUser, error },
+      state: { searchValue },
+      handleChange,
       handleSubmit,
-      changeSearchValue,
-      searchValue,
-      handleChange
-    } = this.props;
+      changeSearchValue
+    } = this;
+
     return (
       <div className="search">
         <input
