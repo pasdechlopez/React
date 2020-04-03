@@ -8,7 +8,7 @@ import {
 
 const authReducer = handleActions(
   {
-    [authorize]: (state, action) => ({
+    [authorize]: state => ({
       ...state,
       authorizing: true,
       isFetchedAuth: false
