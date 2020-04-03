@@ -20,7 +20,7 @@ export class Search extends React.Component {
       state: { searchValue },
       handleChange
     } = this;
-    event.key === 'Enter' && searchValue !== '' && handleChange();
+    event.key === 'Enter' && handleChange();
   };
 
   handleChange = () => {
