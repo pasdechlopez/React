@@ -30,22 +30,27 @@ export class Search extends React.Component {
   };
 
   render() {
-    const { foundUser, error } = this.props;
-    console.log(this.props, 'props from search');
-
+    const {
+      foundUser,
+      error,
+      handleSubmit,
+      changeSearchValue,
+      searchValue,
+      handleChange
+    } = this.props;
     return (
       <div className="search">
         <input
           type="text"
           placeholder="Type a user's login"
           name="username"
-          onKeyPress={this.handleSubmit}
-          onChange={this.changeSearchValue}
+          onKeyPress={handleSubmit}
+          onChange={changeSearchValue}
           id="username"
-          value={this.state.searchValue}
+          value={searchValue}
         />
 
-        <button className="login-button button" onClick={this.handleChange}>
+        <button className="login-button button" onClick={handleChange}>
           Search!
         </button>
 

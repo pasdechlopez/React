@@ -20,7 +20,6 @@ function* authUserSaga({ payload: payloadToken }) {
     if (!token) {
       console.log('unauthorized');
     }
-    console.log('token fro, authsaga', payloadToken);
     const user = yield call(networkRequest, fetchUser, { token });
     setTokenToLocalStorage(token);
     yield put(authorizeSuccess(user, { token }));
@@ -28,7 +27,6 @@ function* authUserSaga({ payload: payloadToken }) {
     yield take(logout);
     removeTokenFromLocalStorage();
   } catch (error) {
-    console.error('error from auth saga', error);
     yield put(authorizeFailure(error));
   }
 }

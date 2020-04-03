@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout, authorize } from '../../actions/auth';
+import { logout } from '../../actions/auth';
 import { fetchUser } from '../../actions/search';
-import { handleFollowers, handleFailure } from '../../actions/followers';
+import { handleFollowers } from '../../actions/followers';
 
-import { Route, Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Followers from '../Followers/Followers';
 import Search from '../Search/Search';
 
@@ -19,7 +19,6 @@ export class UserPage extends Component {
         }
       }
     } = this;
-    console.log(id, 'id from UP');
     fetchUser(id);
   }
   componentDidUpdate(prevProps) {
@@ -30,7 +29,6 @@ export class UserPage extends Component {
       }
     } = prevProps;
     const {
-      handleFollowers,
       match: {
         params: { id }
       }
@@ -42,10 +40,7 @@ export class UserPage extends Component {
 
   render() {
     const {
-      user,
       isAuthorized,
-      followers,
-      handleFollowers,
       logout,
       foundUser,
       history,
@@ -60,7 +55,6 @@ export class UserPage extends Component {
       logout();
       localStorage.removeItem('currentToken');
     };
-    console.log(foundUser, typeof foundUser, 'props from userpage');
     const pushURL = () => {
       history.replace(`/users/${foundUser.login}`);
     };
@@ -71,7 +65,7 @@ export class UserPage extends Component {
       return (
         <div className="handle-error">
           <span>NO USER FOUND</span>{' '}
-          <button className="button" onClick={() => history.push('/users/s')}>
+          <button className="button" onClick={() => history.push('/users/me')}>
             HOME
           </button>
         </div>
