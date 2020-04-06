@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { handleUser, fetchUser } from '../../actions/search';
-import { handleFollowers } from '../../actions/followers';
+import { fetchUser } from '../../actions/search';
+import { fetchFollowers } from '../../actions/followers';
 import { withRouter } from 'react-router-dom';
+import { getFoundUser, getError } from '../../getters';
 
 export class Search extends React.Component {
   state = {
@@ -58,10 +59,6 @@ export class Search extends React.Component {
         <button className="login-button button" onClick={handleChange}>
           Search!
         </button>
-
-        {error && foundUser.name !== '' && (
-          <div className="handle-failure">No user found</div>
-        )}
       </div>
     );
   }
@@ -69,14 +66,12 @@ export class Search extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    foundUser: state.searchReducer.foundUser,
-    error: state.error,
-    token: state.authReducer.token.token
+    foundUser: getFoundUser(state),
+    error: getError(state)
   };
 };
 
 export default connect(mapStateToProps, {
-  handleUser,
   fetchUser,
-  handleFollowers
+  fetchFollowers
 })(withRouter(Search));

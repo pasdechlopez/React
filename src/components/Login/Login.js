@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { authorize } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 import { getTokenFromLocalStorage } from '../../localStorage';
+import { getIsAuthorized, getError } from '../../getters';
 class Login extends React.Component {
   state = {
     currentToken: ''
@@ -11,11 +12,21 @@ class Login extends React.Component {
   componentDidMount() {
     const token = getTokenFromLocalStorage();
     const {
-      props: { authorize, history, isAuthorized }
+      props: { authorize, isAuthorized }
     } = this;
 
     if (!isAuthorized && token !== null) {
       authorize();
+    }
+  }
+  componentDidUpdate() {
+    const {
+      isAuthorized,
+      history,
+      match: { path }
+    } = this.props;
+    if (isAuthorized && path === '/') {
+      history.push('/users/me');
     }
   }
 
@@ -41,7 +52,6 @@ class Login extends React.Component {
       state: { currentToken },
       props: { authorize, history }
     } = this;
-    console.log(currentToken);
     authorize(currentToken);
     history.push('/users/me');
   };
@@ -49,20 +59,12 @@ class Login extends React.Component {
   render() {
     const {
       state: { currentToken },
-      props: {
-        isAuthorized,
-        error,
-        history,
-        match: { path }
-      },
+      props: { error },
       handleAuth,
       handleTokenChange,
-      handleHotkeySubmit,
-      authorizing
+      handleHotkeySubmit
     } = this;
-    if (isAuthorized && path === '/') {
-      history.push('/users/me');
-    }
+
     if (error && error.status) {
       return <div>Error: {error.status}</div>;
     }
@@ -88,11 +90,8 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.authReducer.user,
-    isAuthorized: state.authReducer.isAuthorized,
-    error: state.authReducer.error,
-    token: state.authReducer.token,
-    isFetched: state.authReducer.isFetchedAuth
+    isAuthorized: getIsAuthorized(state),
+    error: getError(state)
   };
 };
 

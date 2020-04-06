@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './AppRouter.css';
 
@@ -10,18 +10,15 @@ import UserPage from '../UserPage/UserPage';
 
 export class AppRouter extends React.Component {
   render() {
-    const {
-      isAuthorized,
-      location: { pathname }
-    } = this.props;
+    const { isAuthorized } = this.props;
     console.log(this.props, 'approuter');
     return (
       <div className="app">
         <Switch>
           <Route exact path="/" component={Login} />
           <PrivateRoute
-            component={UserPage}
             isAuthorized={isAuthorized}
+            component={UserPage}
             path="/users/:id"
           />
         </Switch>
@@ -34,5 +31,4 @@ const mapStateToProps = state => {
     isAuthorized: state.authReducer.isAuthorized
   };
 };
-
-export default connect(mapStateToProps)(withRouter(AppRouter));
+export default connect(mapStateToProps)(AppRouter);

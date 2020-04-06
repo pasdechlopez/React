@@ -1,33 +1,29 @@
 import { handleActions } from 'redux-actions';
 import {
-  handleFollowers,
-  handleSuccess,
-  handleFailure
+  fetchFollowers,
+  handleFollowersSuccess,
+  handleFollowersFailure
 } from '../actions/followers';
 
 const followersReducer = handleActions(
   {
-    [handleFollowers]: (state, action) => ({
+    [fetchFollowers]: (state, action) => ({
       ...state,
       username: action.payload,
-      currentToken: action.meta,
-      isFetchingFollowers: true
+      currentToken: action.meta
     }),
-    [handleSuccess]: (state, action) => ({
+    [handleFollowersSuccess]: (state, action) => ({
       ...state,
-      followers: action.payload,
-      isFetchingFollowers: false
+      followers: action.payload
     }),
-    [handleFailure]: (state, action) => ({
+    [handleFollowersFailure]: state => ({
       ...state,
-      followers: [],
-      isFetchingFollowers: false
+      followers: []
     })
   },
   {
     username: {},
-    followers: [],
-    isFetchingFollowers: false
+    followers: []
   }
 );
 

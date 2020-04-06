@@ -1,14 +1,13 @@
 import { handleActions } from 'redux-actions';
 import {
   fetchUser,
-  handleFollowers,
-  searchFailure,
-  searchSuccess
+  fetchUserFailure,
+  fetchUserSuccess
 } from '../actions/search';
 
 const searchReducer = handleActions(
   {
-    [searchSuccess]: (state, action) => ({
+    [fetchUserSuccess]: (state, action) => ({
       ...state,
       foundUser: action.payload,
       error: '',
@@ -22,7 +21,7 @@ const searchReducer = handleActions(
       isFetching: true,
       isFetched: false
     }),
-    [searchFailure]: (state, action) => ({
+    [fetchUserFailure]: (state, action) => ({
       ...state,
       foundUser: 'Not found',
       error: action.payload,

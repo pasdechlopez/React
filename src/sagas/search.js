@@ -1,11 +1,12 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { findUser, networkRequest, fetchUser } from '../github';
 import {
-  searchSuccess,
+  fetchUserSuccess,
   fetchUser as searchForUser,
-  searchFailure
+  fetchUserFailure
 } from '../actions/search';
 import { getTokenFromLocalStorage } from '../localStorage';
+import { authorizeFailure } from '../actions/auth';
 
 function* fetchUserSaga({ payload: id }) {
   try {
@@ -13,18 +14,20 @@ function* fetchUserSaga({ payload: id }) {
 
     if (id === 'me') {
       const user = yield call(networkRequest, fetchUser, { token });
-      yield put(searchSuccess(user));
+      yield put(fetchUserSuccess(user));
     }
     if (id !== 'me') {
       const foundUser = yield call(networkRequest, findUser, {
         username: id,
         tokenValue: token
       });
-      yield put(searchSuccess(foundUser));
+
+      yield put(fetchUserSuccess(foundUser));
     }
   } catch (error) {
     console.error('action from searchSaga', id);
-    yield put(searchFailure(error));
+    yield put(authorizeFailure(error));
+    yield put(fetchUserFailure(error));
   }
 }
 

@@ -1,13 +1,7 @@
 import { createActions } from 'redux-actions';
 
-export const {
-  fetchUser,
-  handleUser,
-  searchSuccess,
-  searchFailure
-} = createActions(
+export const { fetchUser, fetchUserSuccess, fetchUserFailure } = createActions(
   { FETCH_USER: [payload => payload, (payload, meta) => meta] },
-  'HANDLE_USER',
-  'SEARCH_SUCCESS',
-  'SEARCH_FAILURE'
+  'FETCH_USER_SUCCESS',
+  'FETCH_USER_FAILURE'
 );

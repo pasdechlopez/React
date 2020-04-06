@@ -1,47 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { handleFollowers } from '../../actions/followers';
-import { searchSuccess, fetchUser } from '../../actions/search';
+import { fetchFollowers } from '../../actions/followers';
+import { fetchUserSuccess, fetchUser } from '../../actions/search';
+import { getFollowers } from '../../getters';
 export class Followers extends Component {
   componentDidMount() {
     const {
-      currentId,
-      handleFollowers,
-      foundUser,
-      isFetched,
-      match: {
-        params: { id }
-      }
-    } = this.props;
-    id === 'me' ? handleFollowers('pasdechlopez') : handleFollowers(id);
-  }
+      fetchFollowers,
 
-  componentDidUpdate(prevProps) {
-    console.log(prevProps, 'isNew from followers');
-    const {
-      fetchUser,
-      followers: prevFollowers,
-      match: {
-        params: { id: prevId }
-      }
-    } = prevProps;
-    const {
-      handleFollowers,
-      followers,
       match: {
         params: { id }
       }
     } = this.props;
-    if (prevFollowers !== followers) {
-      // id === 'me' ? handleFollowers('pasdechlopez') : handleFollowers(id);
-    }
+    id === 'me' ? fetchFollowers('pasdechlopez') : fetchFollowers(id);
   }
 
   render() {
-    const { followers, isFetched, handleFollowers, id, history } = this.props;
-    console.log(this.props, 'props from FOllowers');
-    if (!followers) {
+    const { followers } = this.props;
+    if (!followers.length) {
       return <div>No followers? What a shame</div>;
     }
     return (
@@ -71,14 +48,12 @@ export class Followers extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state,
-    followers: state.followersReducer.followers,
-    currentId: state.searchReducer.foundUser.login
+    followers: getFollowers(state)
   };
 };
 
 export default connect(mapStateToProps, {
-  handleFollowers,
+  fetchFollowers,
   fetchUser,
-  searchSuccess
+  fetchUserSuccess
 })(withRouter(Followers));

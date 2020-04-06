@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import { fetchUser } from '../../actions/search';
-import { handleFollowers } from '../../actions/followers';
+import { fetchFollowers } from '../../actions/followers';
 
 import { withRouter } from 'react-router-dom';
 import Followers from '../Followers/Followers';
 import Search from '../Search/Search';
+import {
+  getIsAuthorized,
+  getFoundUser,
+  getFollowers,
+  getIsFetching,
+  getIsFetched
+} from '../../getters';
 
 export class UserPage extends Component {
   componentDidMount() {
@@ -38,26 +45,25 @@ export class UserPage extends Component {
     }
   }
 
+  logOut = () => {
+    logout();
+    localStorage.removeItem('currentToken');
+  };
+
   render() {
     const {
-      isAuthorized,
-      logout,
-      foundUser,
-      history,
-      isFetching,
-      isFetched,
-      match: {
-        path,
-        params: { id }
-      }
-    } = this.props;
-    const logOut = () => {
-      logout();
-      localStorage.removeItem('currentToken');
-    };
-    const pushURL = () => {
-      history.replace(`/users/${foundUser.login}`);
-    };
+      props: {
+        foundUser,
+        history,
+        isFetching,
+        isFetched,
+        match: {
+          params: { id }
+        }
+      },
+      logOut
+    } = this;
+
     if (isFetching) {
       return <div>Fetching...</div>;
     }
@@ -70,10 +76,6 @@ export class UserPage extends Component {
           </button>
         </div>
       );
-    }
-
-    if (!isAuthorized && path == '/users/me') {
-      history.push('/');
     }
 
     return (
@@ -165,14 +167,14 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthorized: state.authReducer.isAuthorized,
-    followers: state.followersReducer.followers,
-    foundUser: state.searchReducer.foundUser,
-    isFetching: state.searchReducer.isFetching,
-    isFetched: state.searchReducer.isFetched
+    isAuthorized: getIsAuthorized(state),
+    followers: getFollowers(state),
+    foundUser: getFoundUser(state),
+    isFetching: getIsFetching(state),
+    isFetched: getIsFetched(state)
   };
 };
 
-export default connect(mapStateToProps, { logout, fetchUser, handleFollowers })(
+export default connect(mapStateToProps, { logout, fetchUser, fetchFollowers })(
   withRouter(UserPage)
 );

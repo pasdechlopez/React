@@ -16,7 +16,7 @@ export const fetchUser = ({ token }) =>
     }
   });
 
-export const fetchFollowers = ({ username, tokenValue }) =>
+export const fetchUsersFollowers = ({ username, tokenValue }) =>
   fetch(
     `https://api.github.com/users/${username}/followers?pages=1&per_page=100`,
     {

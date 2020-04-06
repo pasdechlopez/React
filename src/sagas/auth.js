@@ -18,7 +18,7 @@ function* authUserSaga({ payload: payloadToken }) {
   try {
     let token = payloadToken || getTokenFromLocalStorage();
     if (!token) {
-      console.log('unauthorized');
+      throw 'unauthorized';
     }
     const user = yield call(networkRequest, fetchUser, { token });
     setTokenToLocalStorage(token);
