@@ -7,11 +7,11 @@ import './AppRouter.css';
 import Login from '../Login/Login';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import UserPage from '../UserPage/UserPage';
+import { getIsAuthorized } from '../../getters';
 
 export class AppRouter extends React.Component {
   render() {
     const { isAuthorized } = this.props;
-    console.log(this.props, 'approuter');
     return (
       <div className="app">
         <Switch>
@@ -28,7 +28,7 @@ export class AppRouter extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    isAuthorized: state.authReducer.isAuthorized
+    isAuthorized: getIsAuthorized(state)
   };
 };
 export default connect(mapStateToProps)(AppRouter);

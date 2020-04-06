@@ -14,17 +14,15 @@ import {
   getTokenFromLocalStorage
 } from '../localStorage';
 
-function* authUserSaga({ payload: payloadToken, meta: history }) {
+function* authUserSaga({ payload: payloadToken }) {
   try {
     let token = payloadToken || getTokenFromLocalStorage();
     if (!token) {
       throw 'unauthorized';
     }
-
     const user = yield call(networkRequest, fetchUser, { token });
     setTokenToLocalStorage(token);
     yield put(authorizeSuccess(user, { token }));
-    history.push('user/me');
 
     yield take(logout);
     removeTokenFromLocalStorage();

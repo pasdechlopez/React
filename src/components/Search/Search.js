@@ -37,7 +37,6 @@ export class Search extends React.Component {
 
   render() {
     const {
-      props: { foundUser, error },
       state: { searchValue },
       handleChange,
       handleSubmit,

@@ -6,10 +6,8 @@ export const {
   authorizeFailure,
   logout
 } = createActions(
-  {
-    AUTHORIZE: [payload => payload, (payload, meta = {}) => meta],
-    AUTHORIZE_SUCCESS: [payload => payload, (payload, meta = {}) => meta]
-  },
+  { AUTHORIZE_SUCCESS: [payload => payload, (payload, meta = {}) => meta] },
+  'AUTHORIZE',
   'AUTHORIZE_FAILURE',
   'LOGOUT'
 );
