@@ -5,7 +5,6 @@ import followers from './followers';
 
 export default function*() {
   yield fork(auth);
-
   yield fork(search);
   yield fork(followers);
 }

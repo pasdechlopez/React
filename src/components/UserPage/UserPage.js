@@ -26,8 +26,10 @@ export class UserPage extends Component {
         }
       }
     } = this;
+
     fetchUser(id);
   }
+
   componentDidUpdate(prevProps) {
     const {
       fetchUser,
@@ -35,11 +37,13 @@ export class UserPage extends Component {
         params: { id: prevId }
       }
     } = prevProps;
+
     const {
       match: {
         params: { id }
       }
     } = this.props;
+
     if (prevId !== id) {
       fetchUser(id);
     }
@@ -52,6 +56,7 @@ export class UserPage extends Component {
 
   render() {
     const {
+<<<<<<< HEAD
       props: {
         foundUser,
         history,
@@ -63,10 +68,22 @@ export class UserPage extends Component {
       },
       logOut
     } = this;
+=======
+      logout,
+      foundUser,
+      history,
+      isFetching,
+      isFetched,
+      match: {
+        params: { id }
+      }
+    } = this.props;
+>>>>>>> 83b494b31bb94f7b423fa1bf33f0c52b5fb7f216
 
     if (isFetching) {
       return <div>Fetching...</div>;
     }
+
     if (!foundUser.login) {
       return (
         <div className="handle-error">
@@ -81,15 +98,14 @@ export class UserPage extends Component {
     return (
       <div className="user-info">
         <Search />
-        {id == 'me' && (
+        {id === 'me' ? (
           <Link to="/">
-            <button className="button" onClick={logOut}>
+            <button className="button" onClick={logout}>
               {' '}
               LOG OUT
             </button>
           </Link>
-        )}
-        {id !== 'me' && (
+        ) : (
           <Fragment>
             <button className="button" onClick={() => history.goBack()}>
               {' '}
@@ -103,6 +119,7 @@ export class UserPage extends Component {
             </button>
           </Fragment>
         )}
+
         <div className="user-info__main">
           <div className="user-info__text-main">
             {' '}
@@ -167,11 +184,18 @@ export class UserPage extends Component {
 
 const mapStateToProps = state => {
   return {
+<<<<<<< HEAD
     isAuthorized: getIsAuthorized(state),
     followers: getFollowers(state),
     foundUser: getFoundUser(state),
     isFetching: getIsFetching(state),
     isFetched: getIsFetched(state)
+=======
+    followers: state.followersReducer.followers,
+    foundUser: state.searchReducer.foundUser,
+    isFetching: state.searchReducer.isFetching,
+    isFetched: state.searchReducer.isFetched
+>>>>>>> 83b494b31bb94f7b423fa1bf33f0c52b5fb7f216
   };
 };
 
