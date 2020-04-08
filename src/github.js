@@ -1,4 +1,5 @@
 import { call } from 'redux-saga/effects';
+import "regenerator-runtime/runtime.js";
 
 export const findUser = ({ username, tokenValue }) =>
   fetch(`https://api.github.com/users/${username}`, {

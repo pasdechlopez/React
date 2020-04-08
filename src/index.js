@@ -5,7 +5,9 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter /AppRouter";
 import createStore from "./store";
 const store = createStore();
+import "regenerator-runtime/runtime.js";
 
+console.log("hello");
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
