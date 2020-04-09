@@ -4,8 +4,6 @@ var del = require("del");
 var path = require("path");
 var sass = require("gulp-sass");
 
-let webpack = require("webpack");
-let webpackConfig = require("../webpack.config.js");
 
 let handleCSS = function () {
   return gulp
