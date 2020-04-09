@@ -6,7 +6,6 @@ import AppRouter from "./components/AppRouter /AppRouter";
 import createStore from "./store";
 const store = createStore();
 import "regenerator-runtime/runtime.js";
-import gulp from './gulpfile';
 
 console.log("hello");
 ReactDOM.render(

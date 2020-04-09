@@ -3,11 +3,12 @@ var concat = require("gulp-concat");
 var del = require("del");
 var path = require("path");
 var sass = require("gulp-sass");
-
+const webpack = require("webpack-stream");
 
 let handleCSS = function () {
   return gulp
     .src("./src/**/*.css")
+    .pipe(webpack())
     .pipe(concat("all.css"))
     .pipe(gulp.dest("./dist"));
 };
@@ -30,6 +31,6 @@ gulp.task("toSass", toSass);
 gulp.task("handleCSS", handleCSS);
 
 exports.gulp.task(
-  "defaul",
+  "default",
   gulp.series(cleanDistFolder, handlePics, handleCSS, toSass)
 );
