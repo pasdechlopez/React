@@ -1,0 +1,143 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.user-info {
+  margin: 10px;
+}
+.user-info__main {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+.button {
+  cursor: pointer;
+}
+.span-for-data {
+  margin-right: 4px;
+}
+.button:hover {
+  background: orange;
+}
+.user_info__addition {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.user-info__text {
+  display: flex;
+  margin: 10px;
+}
+.user-info__text {
+  display: flex;
+  justify-content: space-evenly;
+
+  flex-direction: column;
+}
+.user-info__text-header {
+  font-style: italic;
+}
+.user-info__text-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.app {
+  padding: 10px;
+}
+#root {
+  margin: 15px;
+  font-family: sans-serif;
+  background: rgba(250, 58, 0, 0.1);
+  width: 500px;
+  border-radius: 4px;
+  box-shadow: 3px 3px gainsboro;
+}
+.get-data {
+  padding: 10px;
+}
+.user-image {
+  border-radius: 4px;
+  box-shadow: 2px 2px;
+}
+
+.login-button {
+  background: rgba(230, 206, 97, 0.1);
+  margin-left: 3px;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.user-info {
+  font-size: 12px;
+}
+link:visited {
+  text-decoration: none;
+}
+
+.follower-image {
+  border-radius: 4px;
+  margin: 7px;
+}
+
+.followers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.follower {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+  color: rgb(255, 102, 0);
+}
+
+.handle-failure {
+  margin: 10px;
+}
+
