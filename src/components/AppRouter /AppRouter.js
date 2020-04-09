@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-// import './AppRouter.css';
+import './AppRouter.css';
 
 import Login from '../Login/Login';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';

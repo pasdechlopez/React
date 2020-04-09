@@ -7,10 +7,6 @@ module.exports = {
     path: path.join(__dirname, "/dist"),
     filename: "index-bundle.js",
   },
-  node: {
-    fs: 'empty',
-    child_process: 'empty'
-  },
   module: {
     rules: [
       {
@@ -18,10 +14,11 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
-      // {
-      //   test: /\.css$/,
-      //   use: ["style-loader", "css-loader"],
-      // },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      
     ],
   },
   plugins: [
